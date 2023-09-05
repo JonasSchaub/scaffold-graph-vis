@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+title: scaffold-graph-vis
+version: 1.0.0.0
+message: "If you use this software, please cite it as below."
+type: software
+authors:
+  - family-names: "Zander"
+    given-names: "Julian"
+    orcid: "https://orcid.org/0000-0001-8197-076X"
+  - family-names: "Schaub"
+    given-names: "Jonas"
+    orcid: "https://orcid.org/0000-0003-1554-6666"
+  - family-names: "Zielesny"
+    given-names: "Achim"    
+    orcid: "https://orcid.org/0000-0003-0722-4229"
+  - family-names: "Steinbeck"
+    given-names: "Christoph"    
+    orcid: "https://orcid.org/0000-0001-6966-0814"
+url: "https://github.com/JonasSchaub/scaffold-graph-vis"
+license: LGPL-2.1
