@@ -26,34 +26,47 @@ import org.graphstream.graph.implementations.SingleGraph;
 import org.graphstream.stream.file.FileSinkImages;
 import org.graphstream.stream.file.images.Resolutions;
 import org.openscience.cdk.depict.DepictionGenerator;
+import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.tools.scaffold.ScaffoldNodeBase;
 import org.openscience.cdk.tools.scaffold.ScaffoldNodeCollectionBase;
 
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.concurrent.TimeUnit;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 
 /**
- * Contains useful functions such as visualisation with Graphstream.
+ * Contains functionalities to visualise CDK-Scaffold-generated scaffold networks and trees in a
+ * very basic way, employing the GraphStream open graph library.
+ *
  * @author Julian Zander, Jonas Schaub (zanderjulian@gmx.de, jonas.schaub@uni-jena.de)
  * @version 1.0.1.0
  */
 public class GraphStreamUtility {
-    //TODO: Rework directories! target is Maven build output folder!
     /**
-     * The ScaffoldNodeCollectionBase is displayed in a window with GraphStream.
-     * The optional numbering of the nodes reflects the number of the node and the respective level.
-     * @param aScaffoldCollection displayed Collection
-     * @param aShowLabel Adds a label with node level and node number if true.
-     * @throws Exception if anything goes wrong
+     * The ScaffoldNodeCollectionBase (scaffold network or tree) is displayed in a Java Swing application window using GraphStream.
+     * The optional numbering of the nodes reflects their respective indices in the exported adjacency matrix and their level in the graph.
+     *
+     * @param aScaffoldNodeCollection displayed scaffold graph
+     * @param areNodesLabelled adds a label with node level and node number if true.
+     * @throws IOException if image files cannot be written for the depicted scaffold structures
      */
-    public static void displayWithGraphStream(ScaffoldNodeCollectionBase aScaffoldCollection, boolean aShowLabel) throws Exception {
-        /*Create a graph from the ScaffoldCollection*/
-        Graph tmpGraph = new SingleGraph("TestGraph");
+    public static void displayWithGraphStream(ScaffoldNodeCollectionBase aScaffoldNodeCollection, boolean areNodesLabelled) throws IOException {
         System.setProperty("org.graphstream.ui", "swing");
+        Graph tmpGraph = GraphStreamUtility.generateGraphFromScaffoldNodeCollection(aScaffoldNodeCollection,
+                areNodesLabelled,
+                "Graph",
+                "node { shape: rounded-box; size-mode: fit; padding: 60px; } graph { shape: box; size-mode: fit; padding: 70px; }",
+                new DepictionGenerator().withSize(2048,2048).withFillToFit());
+        /*Display graph*/
+        System.setProperty("org.graphstream.ui", "swing");
+        tmpGraph.display();
+        /*
         FileSinkImages tmpFileSinkImages = FileSinkImages.createDefault();
         tmpFileSinkImages.setOutputPolicy(FileSinkImages.OutputPolicy.BY_GRAPH_EVENT);
         tmpFileSinkImages.setOutputType(FileSinkImages.OutputType.jpg);
@@ -63,59 +76,89 @@ public class GraphStreamUtility {
         tmpFileSinkImages.setResolution(Resolutions.UHD_4K);
         tmpFileSinkImages.setAutofit(false);
         tmpFileSinkImages.setLayoutPolicy(FileSinkImages.LayoutPolicy.COMPUTED_FULLY_AT_NEW_IMAGE);
-        tmpGraph.setAttribute("ui.stylesheet", "node { shape: rounded-box; size-mode: fit; padding: 60px; } graph { shape: box; size-mode: fit; padding: 70px; }");
+        BufferedImage bufferedImage = new BufferedImage(2048, 2048, BufferedImage.TYPE_INT_RGB);
+        Graphics2D tmpTestImage = bufferedImage.createGraphics();
+        File tmpImageFile = new File((new File("")).getAbsolutePath() + File.separatorChar + "GraphStreamDisplay" + File.separatorChar + "temp" + File.separatorChar + tmpGraph.getId() + ".png");
+        ImageIO.write(bufferedImage, "png", tmpImageFile);
+        tmpFileSinkImages.writeAll(tmpGraph, tmpImageFile.getAbsolutePath());
+        tmpGraph.setAttribute("ui.screenshot", "screenshot.jpg"); // Saved at: C:\Users\zande\IdeaProjects\ScaffoldGenerator\ScaffoldGenerator
+        */
+    }
+    //
+    /**
+     * The ScaffoldNodeCollectionBase (scaffold network or tree) is parsed into a GraphStream Graph object with nodes depicting the scaffolds.
+     * The optional numbering of the nodes reflects their respective indices in the exported adjacency matrix and their level in the graph.
+     *
+     * @param aScaffoldNodeCollection scaffold graph, a scaffold tree or network
+     * @param areNodesLabelled adds a label with node level and node index if true.
+     * @param aGraphID identifier string to assign the created graph
+     * @param aStyleSheet style sheet for the created graph
+     * @param aCDKDepictionsGenerator used for creating the scaffold images on the nodes
+     * @throws IOException if image files cannot be written for the depicted scaffold structures
+     */
+    public static Graph generateGraphFromScaffoldNodeCollection(
+            ScaffoldNodeCollectionBase aScaffoldNodeCollection,
+            boolean areNodesLabelled,
+            String aGraphID,
+            String aStyleSheet,
+            DepictionGenerator aCDKDepictionsGenerator)
+            throws IOException
+    {
+        //TODO: input checks
+        Graph tmpGraph = new SingleGraph(aGraphID);
+        //tmpGraph.setAttribute("ui.stylesheet", "node { shape: rounded-box; size-mode: fit; padding: 60px; } graph { shape: box; size-mode: fit; padding: 70px; }");
+        tmpGraph.setAttribute("ui.stylesheet", aStyleSheet);
         tmpGraph.setAttribute("ui.quality");
         tmpGraph.setAttribute("ui.antialias");
-        /*Add edges and nodes*/
+        //DepictionGenerator tmpGenerator = new DepictionGenerator().withSize(2048,2048).withFillToFit();
+        //TODO: move to constant
+        File tmpTempFolderPath = new File((new File("")).getAbsolutePath() + File.separatorChar + "GraphStreamDisplay" + File.separatorChar + "temp" + File.separatorChar);
+        if (!tmpTempFolderPath.exists()) {
+            tmpTempFolderPath.mkdirs();
+        }
+        Integer[][] tmpMatrix = aScaffoldNodeCollection.getMatrix();
         int tmpEdgeCount = 0;
-        DepictionGenerator tmpGenerator = new DepictionGenerator().withSize(2048,2048).withFillToFit();
-        Integer[][] tmpMatrix = aScaffoldCollection.getMatrix(); //Create the adjacency matrix
-        for(int tmpRow = 0; tmpRow < tmpMatrix.length; tmpRow++) { //Create a node for each row
-            /*Add the ScaffoldCollection nodes to the graph*/
-            tmpGraph.addNode(String.valueOf(tmpRow));
-            Node tmpNode = tmpGraph.getNode(String.valueOf(tmpRow));
-            tmpNode.setAttribute("Node", aScaffoldCollection.getMatrixNode(tmpRow));
-            /*Add a label to each node that corresponds to the level in the collection. 0 is the root.*/
-            ScaffoldNodeBase tmpCollectionLevelNode =  aScaffoldCollection.getMatrixNode(tmpRow);
-            /*Add a label if true*/
-            if(aShowLabel) {
-                String tmpLabel = tmpCollectionLevelNode.getLevel() + " " + tmpRow;
-                //tmpNode.setAttribute("ui.label", tmpLabel);
+        //for each matrix row, representing the matrix nodes
+        for (int tmpRowIndex = 0; tmpRowIndex < tmpMatrix.length; tmpRowIndex++) {
+            ScaffoldNodeBase tmpCollectionLevelNode =  aScaffoldNodeCollection.getMatrixNode(tmpRowIndex);
+            //each node is assigned its matrix index as id
+            tmpGraph.addNode(String.valueOf(tmpRowIndex));
+            Node tmpNode = tmpGraph.getNode(String.valueOf(tmpRowIndex));
+            //the respective ScaffoldNodeBase instance of the tree or network node is stored on the respective graph node as attribute
+            //TODO: move attribute name to constant and describe in doc
+            tmpNode.setAttribute("ScaffoldNodeBase", tmpCollectionLevelNode);
+            //Add a label to each node that corresponds to the level in the collection and its index in the matrix if true
+            if (areNodesLabelled) {
+                String tmpLabel = tmpCollectionLevelNode.getLevel() + ";" + tmpRowIndex;
+                tmpNode.setAttribute("ui.label", tmpLabel);
             }
-            /*Add the images*/
-            ScaffoldNodeBase tmpCollectionNode = aScaffoldCollection.getMatrixNode(aScaffoldCollection.getMatrixNodesNumbers().get(tmpRow));
-            IAtomContainer tmpCollectionNodeMolecule = (IAtomContainer) tmpCollectionNode.getMolecule();
-            BufferedImage tmpNodeImg = tmpGenerator.depict(tmpCollectionNodeMolecule).toImg();
-            /*The images are stored temporarily*/
-            new File(System.getProperty("user.dir") + "//target/test-classes/").mkdirs();
-            File tmpSecOutputRemove = new File(System.getProperty("user.dir") + "//target/test-classes/GraphStream" + tmpRow + ".png");
-            ImageIO.write(tmpNodeImg, "png", tmpSecOutputRemove);
-            //set the images
-            tmpNode.setAttribute("ui.style", "fill-mode: image-scaled;" + "fill-image: url('" + tmpSecOutputRemove.getAbsolutePath() + "');");
-
-            //tmpNode.setAttribute("ui.style", "fill-mode: image-scaled-ratio-max;" + "fill-image: url('GraphStream" + tmpRow + ".png');");
+            /*Add the structure image*/
+            IAtomContainer tmpCollectionNodeMolecule = (IAtomContainer) tmpCollectionLevelNode.getMolecule();
+            try {
+                BufferedImage tmpNodeImg = aCDKDepictionsGenerator.depict(tmpCollectionNodeMolecule).toImg();
+                /*The images are stored temporarily*/
+                File tmpTemporaryImageFile = new File(tmpTempFolderPath.getPath() + File.separatorChar + "GraphStream" + tmpRowIndex + ".png");
+                ImageIO.write(tmpNodeImg, "png", tmpTemporaryImageFile);
+                //set the images
+                //alternative fill-mode: image-scaled-ratio-max
+                tmpNode.setAttribute("ui.style", "fill-mode: image-scaled;" + "fill-image: url('" + tmpTemporaryImageFile.getAbsolutePath() + "');");
+                tmpTemporaryImageFile.deleteOnExit();
+            } catch (CDKException aCDKException) {
+                Logger.getLogger(GraphStreamUtility.class.getName()).log(Level.WARNING, "Unable to depict structure at index " + tmpRowIndex + ". Displaying empty node.");
+            }
             /*Add edges*/
-            for(int tmpCol = 0; tmpCol < tmpMatrix[tmpRow].length; tmpCol++) { //Go through each column of the row
-                if(tmpRow < tmpCol) { //Skip a diagonal half to get edges in one direction only.
+            for (int tmpColumnIndex = 0; tmpColumnIndex < tmpMatrix[tmpRowIndex].length; tmpColumnIndex++) {
+                //Skip a diagonal half to get edges in one direction only.
+                if (tmpRowIndex < tmpColumnIndex) {
                     continue;
                 }
-                if(tmpMatrix[tmpRow][tmpCol].equals(1)) { //Insert an edge if there is a 1 in it
-                    tmpGraph.addEdge("Edge" + tmpEdgeCount, tmpRow, tmpCol);
+                //Insert an edge if there is 1 in the respective matrix cell
+                if (tmpMatrix[tmpRowIndex][tmpColumnIndex].equals(1)) {
+                    tmpGraph.addEdge(String.valueOf(tmpEdgeCount), tmpRowIndex, tmpColumnIndex);
                     tmpEdgeCount++;
                 }
             }
         }
-        /*Display graph*/
-        System.setProperty("org.graphstream.ui", "swing");
-        tmpGraph.display();
-        //BufferedImage bufferedImage = new BufferedImage(2048, 2048, BufferedImage.TYPE_INT_RGB);
-        //Graphics2D tmpTestImage = bufferedImage.createGraphics();
-        //Todo: write somewhere else!
-        File tmpImageFile = new File("outputFile.jpg");
-        //ImageIO.write(bufferedImage, "png", tmpImageFile);
-        tmpFileSinkImages.writeAll(tmpGraph, tmpImageFile.getAbsolutePath());
-        //tmpFileSinkImages.writeAll(tmpGraph, tmpImageFile.getAbsolutePath());
-        //tmpGraph.setAttribute("ui.screenshot", "screenshot.jpg"); // Saved at: C:\Users\zande\IdeaProjects\ScaffoldGenerator\ScaffoldGenerator
-        TimeUnit.SECONDS.sleep(5);
+        return tmpGraph;
     }
 }

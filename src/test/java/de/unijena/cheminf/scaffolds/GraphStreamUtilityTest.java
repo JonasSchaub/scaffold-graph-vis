@@ -43,6 +43,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class GraphStreamUtilityTest {
     /**
@@ -60,6 +61,7 @@ public class GraphStreamUtilityTest {
         ScaffoldTree tmpScaffoldTree = tmpScaffoldGenerator.generateSchuffenhauerTree(tmpMolecule);
         /*Display the Tree*/
         GraphStreamUtility.displayWithGraphStream(tmpScaffoldTree, true);
+        TimeUnit.SECONDS.sleep(5);
     }
     //
     /**
@@ -77,6 +79,7 @@ public class GraphStreamUtilityTest {
         ScaffoldNetwork tmpScaffoldNetwork = tmpScaffoldGenerator.generateScaffoldNetwork(tmpMolecule);
         /*Display the Tree*/
         GraphStreamUtility.displayWithGraphStream(tmpScaffoldNetwork, true);
+        TimeUnit.SECONDS.sleep(5);
     }
     //
     /**
@@ -101,6 +104,7 @@ public class GraphStreamUtilityTest {
         List<ScaffoldTree> tmpScaffoldTreeList = tmpScaffoldGenerator.generateSchuffenhauerForest(tmpMoleculeList);
         /*Display the Tree*/
         GraphStreamUtility.displayWithGraphStream(tmpScaffoldTreeList.get(0), true);
+        TimeUnit.SECONDS.sleep(5);
     }
     //
     /**
@@ -121,6 +125,7 @@ public class GraphStreamUtilityTest {
         ScaffoldNetwork tmpScaffoldTree = tmpScaffoldGenerator.generateScaffoldNetwork(tmpMoleculeList);
         /*Display the Tree*/
         GraphStreamUtility.displayWithGraphStream(tmpScaffoldTree, true);
+        TimeUnit.SECONDS.sleep(5);
     }
     //
     /**
@@ -163,6 +168,7 @@ public class GraphStreamUtilityTest {
         System.out.println("Max Lvl: " + tmpScaffoldTree.getMaxLevel());
         /*Display the Tree*/
         GraphStreamUtility.displayWithGraphStream(tmpScaffoldTree, true);
+        TimeUnit.SECONDS.sleep(5);
     }
     //
     /**
@@ -206,6 +212,7 @@ public class GraphStreamUtilityTest {
         System.out.println("Max Lvl: " + tmpScaffoldNetwork.getMaxLevel());
         /*Display the network*/
         GraphStreamUtility.displayWithGraphStream(tmpScaffoldNetwork, true);
+        TimeUnit.SECONDS.sleep(5);
     }
     //
     /**
@@ -247,6 +254,7 @@ public class GraphStreamUtilityTest {
         }
         /*Display the network*/
         GraphStreamUtility.displayWithGraphStream(tmpScaffoldNetwork, true);
+        TimeUnit.SECONDS.sleep(5);
     }
     //
     /**
@@ -291,6 +299,7 @@ public class GraphStreamUtilityTest {
         System.out.println("I am Root: " + tmpSmilesGenerator.create(tmpRootMolecule));
         /*Display the tree*/
         GraphStreamUtility.displayWithGraphStream(tmpScaffoldTree, true);
+        TimeUnit.SECONDS.sleep(5);
     }
     //
     /**
@@ -339,6 +348,7 @@ public class GraphStreamUtilityTest {
         }
         /*Display the network*/
         GraphStreamUtility.displayWithGraphStream(tmpScaffoldNetwork, true);
+        TimeUnit.SECONDS.sleep(5);
     }
     //
     /**
@@ -394,6 +404,7 @@ public class GraphStreamUtilityTest {
         }
         /*Display the network*/
         GraphStreamUtility.displayWithGraphStream(tmpScaffoldNetwork, true);
+        TimeUnit.SECONDS.sleep(5);
     }
     //
     /**
@@ -442,6 +453,7 @@ public class GraphStreamUtilityTest {
         }
         /*Display the network*/
         GraphStreamUtility.displayWithGraphStream(tmpScaffoldNetwork, true);
+        TimeUnit.SECONDS.sleep(5);
     }
     //
     /**
@@ -495,6 +507,7 @@ public class GraphStreamUtilityTest {
         }
         /*Display the tree*/
         GraphStreamUtility.displayWithGraphStream(tmpScaffoldTree, true);
+        TimeUnit.SECONDS.sleep(5);
     }
     //
     /**
@@ -529,6 +542,7 @@ public class GraphStreamUtilityTest {
         System.out.println("I am Root: " + tmpSmilesGenerator.create(tmpRootMolecule));
         /*Display the tree*/
         GraphStreamUtility.displayWithGraphStream(tmpScaffoldTree, true);
+        TimeUnit.SECONDS.sleep(5);
     }
     //
     /**
@@ -577,6 +591,7 @@ public class GraphStreamUtilityTest {
         System.out.println("I am Root: " + tmpSmilesGenerator.create(tmpRootMolecule));
         /*Display the tree*/
         GraphStreamUtility.displayWithGraphStream(tmpScaffoldTree, true);
+        TimeUnit.SECONDS.sleep(5);
     }
     //
     /**
@@ -607,6 +622,7 @@ public class GraphStreamUtilityTest {
         }
         /*Display the tree*/
         GraphStreamUtility.displayWithGraphStream(tmpScaffoldTree, true);
+        TimeUnit.SECONDS.sleep(5);
     }
     //
     /**
