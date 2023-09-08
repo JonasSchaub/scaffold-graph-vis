@@ -20,6 +20,8 @@
  */
 package de.unijena.cheminf.scaffolds;
 
+import org.graphstream.graph.Graph;
+import org.graphstream.graph.implementations.SingleGraph;
 import org.junit.jupiter.api.Test;
 import org.openscience.cdk.AtomContainer;
 import org.openscience.cdk.interfaces.IAtomContainer;
@@ -56,11 +58,18 @@ public class GraphStreamUtilityTest {
     public void graphStreamTreeTest() throws Exception {
         SmilesParser tmpParser  = new SmilesParser(SilentChemObjectBuilder.getInstance());
         ScaffoldGenerator tmpScaffoldGenerator = new ScaffoldGenerator();
-        //SMILES to IAtomContainer
         IAtomContainer tmpMolecule = tmpParser.parseSmiles("CNC1CCC(C2=CC=CC=C12)C3=CC(=C(C=C3)Cl)Cl");
         ScaffoldTree tmpScaffoldTree = tmpScaffoldGenerator.generateSchuffenhauerTree(tmpMolecule);
-        /*Display the Tree*/
-        GraphStreamUtility.displayWithGraphStream(tmpScaffoldTree, true);
+        Graph tmpGraph = new SingleGraph("Sertraline-Scaffold-Tree");
+        GraphStreamUtility.generateGraphFromScaffoldNodeCollection(tmpScaffoldTree,
+                GraphStreamUtility.DEFAULT_ARE_NODES_LABELLED,
+                GraphStreamUtility.DEFAULT_CDK_DEPICTION_GENERATOR,
+                GraphStreamUtility.DEFAULT_GRAPH_STYLE_SHEET,
+                tmpGraph);
+        System.setProperty("org.graphstream.ui", GraphStreamUtility.DEFAULT_GRAPHSTREAM_UI);
+        tmpGraph.display();
+        GraphStreamUtility.screenshotGraph(tmpGraph, GraphStreamUtility.getGraphStreamDisplayFolder().getAbsolutePath() + File.separatorChar + "ScaffoldTree_low.png");
+        GraphStreamUtility.screenshotGraphHighQuality(tmpGraph, GraphStreamUtility.getGraphStreamDisplayFolder().getAbsolutePath() + File.separatorChar + "ScaffoldTree.png");
         TimeUnit.SECONDS.sleep(5);
     }
     //
