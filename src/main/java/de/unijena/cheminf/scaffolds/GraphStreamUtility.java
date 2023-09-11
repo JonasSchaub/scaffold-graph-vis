@@ -112,7 +112,6 @@ public class GraphStreamUtility {
         return graphStreamDisplayFolder;
     }
     //
-
     /**
      * Sets the folder to store screenshots, temporary image files, etc.
      *
@@ -304,10 +303,13 @@ public class GraphStreamUtility {
     }
     //
     /**
+     * The ScaffoldNodeCollectionBase (scaffold network or tree) is parsed into a GraphStream Graph object with nodes depicting the scaffolds.
      *
-     * @param aScaffoldNodeCollection
-     * @return
-     * @throws IOException
+     * @param aScaffoldNodeCollection scaffold graph (scaffold tree or network) to parse
+     * @return GraphStream Graph instance representing the given scaffold graph with structure depictions of the scaffolds on its nodes
+     * @throws NullPointerException if any parameter is null
+     * @throws IllegalArgumentException if any parameter does not fulfil its requirements
+     * @throws IOException if image files cannot be written for the depicted scaffold structures
      */
     public static Graph generateGraphFromScaffoldNodeCollection(ScaffoldNodeCollectionBase aScaffoldNodeCollection)
             throws IOException
@@ -320,10 +322,15 @@ public class GraphStreamUtility {
     }
     //
     /**
+     * The ScaffoldNodeCollectionBase (scaffold network or tree) is parsed into a GraphStream Graph object with nodes depicting the scaffolds.
+     * The optional numbering of the nodes reflects their respective indices in the exported adjacency matrix and their level in the graph.
      *
-     * @param aScaffoldNodeCollection
-     * @return
-     * @throws IOException
+     * @param aScaffoldNodeCollection scaffold graph (scaffold tree or network) to parse
+     * @param areNodesLabelled adds a label with node level and node index if true
+     * @return GraphStream Graph instance representing the given scaffold graph with structure depictions of the scaffolds on its nodes
+     * @throws NullPointerException if any parameter is null
+     * @throws IllegalArgumentException if any parameter does not fulfil its requirements
+     * @throws IOException if image files cannot be written for the depicted scaffold structures
      */
     public static Graph generateGraphFromScaffoldNodeCollection(ScaffoldNodeCollectionBase aScaffoldNodeCollection,
                                                                 boolean areNodesLabelled)
@@ -337,58 +344,79 @@ public class GraphStreamUtility {
     }
     //
     /**
+     * The ScaffoldNodeCollectionBase (scaffold network or tree) is parsed into a GraphStream Graph object with nodes depicting the scaffolds.
+     * The optional numbering of the nodes reflects their respective indices in the exported adjacency matrix and their level in the graph.
      *
-     * @param aScaffoldNodeCollection
-     * @return
-     * @throws IOException
+     * @param aScaffoldNodeCollection scaffold graph (scaffold tree or network) to parse
+     * @param areNodesLabelled adds a label with node level and node index if true
+     * @param aCDKDepictionGenerator CDK depiction generator used for generating the structure images on the graph nodes
+     * @return GraphStream Graph instance representing the given scaffold graph with structure depictions of the scaffolds on its nodes
+     * @throws NullPointerException if any parameter is null
+     * @throws IllegalArgumentException if any parameter does not fulfil its requirements
+     * @throws IOException if image files cannot be written for the depicted scaffold structures
      */
     public static Graph generateGraphFromScaffoldNodeCollection(ScaffoldNodeCollectionBase aScaffoldNodeCollection,
                                                                 boolean areNodesLabelled,
-                                                                DepictionGenerator aCDKDepictionsGenerator)
+                                                                DepictionGenerator aCDKDepictionGenerator)
             throws IOException
     {
         return GraphStreamUtility.generateGraphFromScaffoldNodeCollection(aScaffoldNodeCollection,
                 areNodesLabelled,
-                aCDKDepictionsGenerator,
+                aCDKDepictionGenerator,
                 GraphStreamUtility.DEFAULT_GRAPH_STYLE_SHEET,
                 new SingleGraph(GraphStreamUtility.DEFAULT_GRAPH_ID));
     }
     //
     /**
+     * The ScaffoldNodeCollectionBase (scaffold network or tree) is parsed into a GraphStream Graph object with nodes depicting the scaffolds.
+     * The optional numbering of the nodes reflects their respective indices in the exported adjacency matrix and their level in the graph.
      *
-     * @param aScaffoldNodeCollection
-     * @return
-     * @throws IOException
+     * @param aScaffoldNodeCollection scaffold graph (scaffold tree or network) to parse
+     * @param areNodesLabelled adds a label with node level and node index if true
+     * @param aCDKDepictionGenerator CDK depiction generator used for generating the structure images on the graph nodes
+     * @param aStyleSheet style sheet property for the graph
+     * @return GraphStream Graph instance representing the given scaffold graph with structure depictions of the scaffolds on its nodes
+     * @throws NullPointerException if any parameter is null
+     * @throws IllegalArgumentException if any parameter does not fulfil its requirements
+     * @throws IOException if image files cannot be written for the depicted scaffold structures
      */
     public static Graph generateGraphFromScaffoldNodeCollection(ScaffoldNodeCollectionBase aScaffoldNodeCollection,
                                                                 boolean areNodesLabelled,
-                                                                DepictionGenerator aCDKDepictionsGenerator,
+                                                                DepictionGenerator aCDKDepictionGenerator,
                                                                 String aStyleSheet)
             throws IOException
     {
         return GraphStreamUtility.generateGraphFromScaffoldNodeCollection(aScaffoldNodeCollection,
                 areNodesLabelled,
-                aCDKDepictionsGenerator,
+                aCDKDepictionGenerator,
                 aStyleSheet,
                 new SingleGraph(GraphStreamUtility.DEFAULT_GRAPH_ID));
     }
     //
     /**
+     * The ScaffoldNodeCollectionBase (scaffold network or tree) is parsed into a GraphStream Graph object with nodes depicting the scaffolds.
+     * The optional numbering of the nodes reflects their respective indices in the exported adjacency matrix and their level in the graph.
      *
-     * @param aScaffoldNodeCollection
-     * @return
-     * @throws IOException
+     * @param aScaffoldNodeCollection scaffold graph (scaffold tree or network) to parse
+     * @param areNodesLabelled adds a label with node level and node index if true
+     * @param aCDKDepictionGenerator CDK depiction generator used for generating the structure images on the graph nodes
+     * @param aStyleSheet style sheet property for the graph
+     * @param aGraphID id given to the newly created Graph instance
+     * @return GraphStream Graph instance representing the given scaffold graph with structure depictions of the scaffolds on its nodes
+     * @throws NullPointerException if any parameter is null
+     * @throws IllegalArgumentException if any parameter does not fulfil its requirements
+     * @throws IOException if image files cannot be written for the depicted scaffold structures
      */
     public static Graph generateGraphFromScaffoldNodeCollection(ScaffoldNodeCollectionBase aScaffoldNodeCollection,
                                                                 boolean areNodesLabelled,
-                                                                DepictionGenerator aCDKDepictionsGenerator,
+                                                                DepictionGenerator aCDKDepictionGenerator,
                                                                 String aStyleSheet,
                                                                 String aGraphID)
             throws IOException
     {
         return GraphStreamUtility.generateGraphFromScaffoldNodeCollection(aScaffoldNodeCollection,
                 areNodesLabelled,
-                aCDKDepictionsGenerator,
+                aCDKDepictionGenerator,
                 aStyleSheet,
                 new SingleGraph(aGraphID));
     }
@@ -397,11 +425,12 @@ public class GraphStreamUtility {
      * The ScaffoldNodeCollectionBase (scaffold network or tree) is parsed into a GraphStream Graph object with nodes depicting the scaffolds.
      * The optional numbering of the nodes reflects their respective indices in the exported adjacency matrix and their level in the graph.
      *
-     * @param aScaffoldNodeCollection displayed scaffold graph
+     * @param aScaffoldNodeCollection scaffold graph (scaffold tree or network) to parse
      * @param areNodesLabelled adds a label with node level and node index if true
      * @param aCDKDepictionGenerator CDK depiction generator used for generating the structure images on the graph nodes
      * @param aStyleSheet style sheet property for the graph
-     * @param aGraph empty Graph instance (convenience here, e.g. to connect a file sink image instance to the graph before it is constructed)
+     * @param aGraph empty(!) Graph instance (convenience here, e.g. to connect a file sink image instance to the graph before it is constructed)
+     * @return GraphStream Graph instance representing the given scaffold graph with structure depictions of the scaffolds on its nodes
      * @throws NullPointerException if any parameter is null
      * @throws IllegalArgumentException if any parameter does not fulfil its requirements
      * @throws IOException if image files cannot be written for the depicted scaffold structures
@@ -414,7 +443,22 @@ public class GraphStreamUtility {
                                                                 )
             throws NullPointerException, IllegalArgumentException, IOException
     {
-        //TODO: input checks
+        Objects.requireNonNull(aScaffoldNodeCollection, "Given scaffold graph is null.");
+        Objects.requireNonNull(aCDKDepictionGenerator, "Given depiction generator is null.");
+        Objects.requireNonNull(aStyleSheet, "Given style sheet is null");
+        Objects.requireNonNull(aGraph, "Given Graph instance is null.");
+        if (aScaffoldNodeCollection instanceof ScaffoldTree) {
+            if (!((ScaffoldTree) aScaffoldNodeCollection).isValid()) {
+                throw new IllegalArgumentException("Given scaffold tree is invalid (unconnected or without a single root node).");
+            }
+        }
+        if (aStyleSheet.isBlank()) {
+            throw new IllegalArgumentException("Given style sheet is blank.");
+        }
+        if (aGraph.getNodeCount() != 0 || aGraph.getEdgeCount() != 0) {
+            throw new IllegalArgumentException("Given Graph instance should be empty! " +
+                    "If you want to merge multiple scaffold collections, use the respective methods on the cdk-scaffold level.");
+        }
         aGraph.setAttribute("ui.stylesheet", aStyleSheet);
         aGraph.setAttribute("ui.quality");
         aGraph.setAttribute("ui.antialias");
@@ -470,14 +514,40 @@ public class GraphStreamUtility {
     }
     //
     /**
+     * Creates a screenshot of the given graph using the "ui.screenshot" attribute.
      *
+     * @param aGraph graph to screenshot
+     * @param aFilePath file path were the screenshot should be created (existing files will be overridden)
+     * @throws NullPointerException if any parameter is null
+     * @throws IllegalArgumentException if any parameter does not fulfil its requirements
      */
-    public static void screenshotGraph(Graph aGraph, String aFilePath) {
+    public static void screenshotGraph(Graph aGraph, String aFilePath) throws NullPointerException, IllegalArgumentException {
+        Objects.requireNonNull(aGraph, "Given Graph instance is null.");
+        Objects.requireNonNull(aFilePath, "Given file path is null.");
+        if (aFilePath.isBlank()) {
+            throw new IllegalArgumentException("Given file path is blank.");
+        }
+        File tmpTargetFile = new File(aFilePath);
+        try {
+            if (!tmpTargetFile.canRead() || !tmpTargetFile.canWrite() || !tmpTargetFile.isFile()) {
+                throw new IllegalArgumentException("Given file path " + aFilePath +" is not a file or cannot be read from or written to.");
+            }
+        } catch (SecurityException aSecurityException) {
+            throw new IllegalArgumentException("Given file path " + aFilePath +" is protected by a security manager.");
+        }
+        if (Objects.isNull(System.getProperty("org.graphStream.ui"))) {
+            System.setProperty("org.graphstream.ui", GraphStreamUtility.DEFAULT_GRAPHSTREAM_UI);
+        }
         aGraph.setAttribute("ui.screenshot", aFilePath);
     }
     //
     /**
+     * Creates a high quality screenshot of the given graph using the FileSinkImages method writeAll().
      *
+     * @param aGraph graph to screenshot
+     * @param aFilePath file path were the screenshot should be created (existing files will be overridden)
+     * @throws NullPointerException if any parameter is null
+     * @throws IllegalArgumentException if any parameter does not fulfil its requirements
      */
     public static void screenshotGraphHighQuality(Graph aGraph, String aFilePath) throws IOException {
         FileSinkImages tmpFileSinkImages = FileSinkImages.createDefault();
@@ -490,9 +560,29 @@ public class GraphStreamUtility {
     }
     //
     /**
+     * Creates a high quality screenshot of the given graph using the FileSinkImages method writeAll().
      *
+     * @param aGraph graph to screenshot
+     * @param aFilePath file path were the screenshot should be created (existing files will be overridden)
+     * @param aFileSinkImages FileSinkImages instance with custom configuration to create the screenshot
+     * @throws NullPointerException if any parameter is null
+     * @throws IllegalArgumentException if any parameter does not fulfil its requirements
      */
     public static void screenshotGraphHighQuality(Graph aGraph, String aFilePath, FileSinkImages aFileSinkImages) throws IOException {
+        Objects.requireNonNull(aGraph, "Given Graph instance is null.");
+        Objects.requireNonNull(aFilePath, "Given file path is null.");
+        Objects.requireNonNull(aFileSinkImages, "Given FileSinkImages instance is null.");
+        if (aFilePath.isBlank()) {
+            throw new IllegalArgumentException("Given file path is blank.");
+        }
+        File tmpTargetFile = new File(aFilePath);
+        try {
+            if (!tmpTargetFile.canRead() || !tmpTargetFile.canWrite() || !tmpTargetFile.isFile()) {
+                throw new IllegalArgumentException("Given file path " + aFilePath +" is not a file or cannot be read from or written to.");
+            }
+        } catch (SecurityException aSecurityException) {
+            throw new IllegalArgumentException("Given file path " + aFilePath +" is protected by a security manager.");
+        }
         if (Objects.isNull(System.getProperty("org.graphStream.ui"))) {
             System.setProperty("org.graphstream.ui", GraphStreamUtility.DEFAULT_GRAPHSTREAM_UI);
         }
