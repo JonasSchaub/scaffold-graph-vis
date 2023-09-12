@@ -48,13 +48,17 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
- * TODO
+ * Test class showcasing the capabilities of the GraphStream scaffold graph visualisation functionality.
+ *
+ *  @author Julian Zander, Jonas Schaub (zanderjulian@gmx.de, jonas.schaub@uni-jena.de)
+ *  @version 1.0.0.0
  */
 public class GraphStreamUtilityTest {
     /**
-     * Loads Sertraline (CID 68617) out of a SMILES.
+     * Imports Sertraline (PubChem CID 68617) from a SMILES string.
      * Generates the Schuffenhauer tree of this molecule and displays it with GraphStream.
-     * This molecule is also used in Scheme 15 in the <a href="https://doi.org/10.1021/ci600338x">"The scaffold Tree"</a> paper.
+     * This molecule is also used in Scheme 15 in the <a href="https://doi.org/10.1021/ci600338x">"The Scaffold Tree"</a> paper.
+     *
      * @throws Exception if anything goes wrong
      */
     @Test
@@ -63,6 +67,9 @@ public class GraphStreamUtilityTest {
         ScaffoldGenerator tmpScaffoldGenerator = new ScaffoldGenerator();
         IAtomContainer tmpMolecule = tmpParser.parseSmiles("CNC1CCC(C2=CC=CC=C12)C3=CC(=C(C=C3)Cl)Cl");
         ScaffoldTree tmpScaffoldTree = tmpScaffoldGenerator.generateSchuffenhauerTree(tmpMolecule);
+        //shortcut:
+        //GraphStreamUtility.displayWithGraphStream(tmpScaffoldTree);
+        //alternative with more options:
         Graph tmpGraph = new SingleGraph("Sertraline-Scaffold-Tree");
         GraphStreamUtility.generateGraphFromScaffoldNodeCollection(tmpScaffoldTree,
                 GraphStreamUtility.DEFAULT_ARE_NODES_LABELLED,
@@ -71,43 +78,45 @@ public class GraphStreamUtilityTest {
                 tmpGraph);
         System.setProperty("org.graphstream.ui", GraphStreamUtility.DEFAULT_GRAPHSTREAM_UI);
         tmpGraph.display();
-        GraphStreamUtility.screenshotGraph(tmpGraph, GraphStreamUtility.getGraphStreamDisplayFolder().getAbsolutePath() + File.separatorChar + "ScaffoldTree_low.png");
-        GraphStreamUtility.screenshotGraphHighQuality(tmpGraph, GraphStreamUtility.getGraphStreamDisplayFolder().getAbsolutePath() + File.separatorChar + "ScaffoldTree.png");
-        TimeUnit.SECONDS.sleep(5);
+        //screenshot the graph in both ways available
+        GraphStreamUtility.screenshotGraph(tmpGraph, GraphStreamUtility.getGraphStreamDisplayFolder().getAbsolutePath() + File.separatorChar + "Sertraline_ScaffoldTree_low.png");
+        GraphStreamUtility.screenshotGraphHighQuality(tmpGraph, GraphStreamUtility.getGraphStreamDisplayFolder().getAbsolutePath() + File.separatorChar + "Sertraline_ScaffoldTree.png");
+        TimeUnit.SECONDS.sleep(10);
     }
     //
     /**
-     * Loads Sertraline (CID 68617) out of a SMILES.
-     * Generates the enumerative network of this molecule and displays it with GraphStream.
-     * This molecule is also used in Scheme 15 in the <a href="https://doi.org/10.1021/ci600338x">"The scaffold Tree"</a> paper.
+     * Imports Sertraline (PubChem CID 68617) from a SMILES string.
+     * Generates the scaffold network of this molecule and displays it with GraphStream.
+     * This molecule is also used in Scheme 15 in the <a href="https://doi.org/10.1021/ci600338x">"The Scaffold Tree"</a> paper.
+     *
      * @throws Exception if anything goes wrong
      */
     @Test
     public void graphStreamNetworkTest() throws Exception {
         SmilesParser tmpParser  = new SmilesParser(SilentChemObjectBuilder.getInstance());
         ScaffoldGenerator tmpScaffoldGenerator = new ScaffoldGenerator();
-        //SMILES to IAtomContainer
         IAtomContainer tmpMolecule = tmpParser.parseSmiles("CNC1CCC(C2=CC=CC=C12)C3=CC(=C(C=C3)Cl)Cl");
         ScaffoldNetwork tmpScaffoldNetwork = tmpScaffoldGenerator.generateScaffoldNetwork(tmpMolecule);
-        /*Display the Tree*/
         GraphStreamUtility.displayWithGraphStream(tmpScaffoldNetwork, true);
-        TimeUnit.SECONDS.sleep(5);
+        GraphStreamUtility.screenshotGraphHighQuality(GraphStreamUtility.generateGraphFromScaffoldNodeCollection(tmpScaffoldNetwork),
+                GraphStreamUtility.getGraphStreamDisplayFolder().getAbsolutePath() + File.separatorChar + "Sertraline_ScaffoldNetwork.png");
+        TimeUnit.SECONDS.sleep(10);
     }
     //
     /**
-     * Loads four molecules out of a SMILES.
-     * Generates Schuffenhauer trees of these molecules, merges them to one tree and displays the tree with GraphStream.
+     * Imports four molecules from SMILES strings, generates a Schuffenhauer tree of these molecules,
+     * and displays the resulting tree with GraphStream.
+     *
      * @throws Exception if anything goes wrong
      */
     @Test
     public void graphStreamTreeMergeTest() throws Exception {
         SmilesParser tmpParser  = new SmilesParser(SilentChemObjectBuilder.getInstance());
         ScaffoldGenerator tmpScaffoldGenerator = new ScaffoldGenerator();
-        //SMILES to IAtomContainer
-        IAtomContainer tmpMolecule = tmpParser.parseSmiles("C1CCC2C(C1)C3=CN=CN=C3S2");
-        IAtomContainer tmpMolecule1 = tmpParser.parseSmiles("C1CC2=C(C1)SC3=C2C(=NC=N3)Cl");
-        IAtomContainer tmpMolecule2 = tmpParser.parseSmiles("CC1=C(SC=[N+]1CC2=CN=C(N=C2N)C)CCO.[Cl-]"); //6042
-        IAtomContainer tmpMolecule3 = tmpParser.parseSmiles("COCCOC1=C(C=C2C(=C1)C(=NC=N2)NC3=CC=CC(=C3)C#C)OCCOC"); //176870
+        IAtomContainer tmpMolecule = tmpParser.parseSmiles("C1CCC2C(C1)C3=CN=CN=C3S2"); //PubChem CID 141755869
+        IAtomContainer tmpMolecule1 = tmpParser.parseSmiles("C1CC2=C(C1)SC3=C2C(=NC=N3)Cl"); //PubChem CID 789817
+        IAtomContainer tmpMolecule2 = tmpParser.parseSmiles("CC1=C(SC=[N+]1CC2=CN=C(N=C2N)C)CCO.[Cl-]"); //PubChem CID 6042, Thiamine
+        IAtomContainer tmpMolecule3 = tmpParser.parseSmiles("COCCOC1=C(C=C2C(=C1)C(=NC=N2)NC3=CC=CC(=C3)C#C)OCCOC"); //PubChem CID 176870, Erlotinib
         List<IAtomContainer> tmpMoleculeList = new ArrayList<>();
         tmpMoleculeList.add(tmpMolecule);
         tmpMoleculeList.add(tmpMolecule1);
@@ -116,59 +125,55 @@ public class GraphStreamUtilityTest {
         List<ScaffoldTree> tmpScaffoldTreeList = tmpScaffoldGenerator.generateSchuffenhauerForest(tmpMoleculeList);
         /*Display the Tree*/
         GraphStreamUtility.displayWithGraphStream(tmpScaffoldTreeList.get(0), true);
-        TimeUnit.SECONDS.sleep(5);
+        GraphStreamUtility.screenshotGraphHighQuality(GraphStreamUtility.generateGraphFromScaffoldNodeCollection(tmpScaffoldTreeList.get(0)),
+                GraphStreamUtility.getGraphStreamDisplayFolder().getAbsolutePath() + File.separatorChar + "Pyrimidine_ScaffoldTree.png");
+        TimeUnit.SECONDS.sleep(10);
     }
     //
     /**
-     * Loads two molecules out of a SMILES.
-     * Generates networks of these molecules, merges them to one network and displays the network with GraphStream.
+     * Imports two molecules from SMILES strings, generates a scaffold network of these molecules,
+     * and displays the result with GraphStream.
+     *
      * @throws Exception if anything goes wrong
      */
     @Test
     public void graphStreamNetworkMergeTest() throws Exception {
         SmilesParser tmpParser  = new SmilesParser(SilentChemObjectBuilder.getInstance());
         ScaffoldGenerator tmpScaffoldGenerator = new ScaffoldGenerator();
-        //SMILES to IAtomContainer
-        IAtomContainer tmpMolecule = tmpParser.parseSmiles("ClC2NC1SCNN1N2");
-        IAtomContainer tmpMolecule1 = tmpParser.parseSmiles("c2ccc(C1NCNN1)cc2");
+        IAtomContainer tmpMolecule = tmpParser.parseSmiles("ClC2NC1SCNN1N2"); //fantasy molecule for testing
+        IAtomContainer tmpMolecule1 = tmpParser.parseSmiles("c2ccc(C1NCNN1)cc2"); //fantasy molecule for testing
         List<IAtomContainer> tmpMoleculeList = new ArrayList<>();
         tmpMoleculeList.add(tmpMolecule);
         tmpMoleculeList.add(tmpMolecule1);
-        ScaffoldNetwork tmpScaffoldTree = tmpScaffoldGenerator.generateScaffoldNetwork(tmpMoleculeList);
-        /*Display the Tree*/
-        GraphStreamUtility.displayWithGraphStream(tmpScaffoldTree, true);
-        TimeUnit.SECONDS.sleep(5);
+        ScaffoldNetwork tmpScaffoldNetwork = tmpScaffoldGenerator.generateScaffoldNetwork(tmpMoleculeList);
+        GraphStreamUtility.displayWithGraphStream(tmpScaffoldNetwork, true);
+        TimeUnit.SECONDS.sleep(10);
     }
     //
     /**
-     * Creates a ScaffoldTree from a V2000 or V3000 mol file and displays it as a network with GraphStream.
+     * Creates a scaffold tree from a V2000 or V3000 mol file of Flucloxacillin and displays it as a scaffold tree with GraphStream.
+     * Some additional information is printed for every scaffold node.
      * @throws Exception if anything goes wrong
      */
     @Test
-    public void graphStreamTreeTest3() throws Exception {
+    public void graphStreamTreeTestFlucloxacillin() throws Exception {
         String tmpFileName = "Test3" ;
         //Load molecule from molfile
         IAtomContainer tmpMolecule = this.loadMolFile(tmpFileName);
-        //Generate a tree of molecules with iteratively removed terminal rings
+        //Generate a tree
         ScaffoldGenerator tmpScaffoldGenerator = new ScaffoldGenerator();
         ScaffoldTree tmpScaffoldTree = tmpScaffoldGenerator.generateSchuffenhauerTree(tmpMolecule);
-        /*Remove some nodes. Nodes can be removed from the non-root end.
-        If nodes are removed in the middle of the tree, it cannot be displayed with Graphstream.*/
-        System.out.println(tmpScaffoldTree.getAllNodes().size());
-        //TreeNode tmpRemoveNode = (TreeNode) tmpScaffoldTree.getMatrixNode(3);
-        //tmpScaffoldTree.removeNode(tmpRemoveNode);
-        System.out.println(tmpScaffoldTree.getAllNodes().size());
-        /*Print some further information*/
+        //Print some further information
         SmilesGenerator tmpSmilesGenerator = new SmilesGenerator(SmiFlavor.Unique);
-        for(ScaffoldNodeBase tmpTestNodeBase : tmpScaffoldTree.getAllNodes()) {
+        for (ScaffoldNodeBase tmpTestNodeBase : tmpScaffoldTree.getAllNodes()) {
             TreeNode tmpTestNode = (TreeNode) tmpTestNodeBase;
             IAtomContainer tmpTestMolecule = (IAtomContainer) tmpTestNode.getMolecule();
             System.out.println("--- Node: " + tmpSmilesGenerator.create(tmpTestMolecule) + " ---");
             System.out.println("Node on LvL: " + tmpTestNode.getLevel());
             System.out.println("Children Number: " + tmpTestNode.getChildren().size());
-            System.out.println("Origin" +tmpTestNode.getOriginSmilesList().get(0) + "Size" + tmpTestNode.getOriginSmilesList().size());
-            if(!tmpTestNode.getNonVirtualOriginCount().equals(0)){
-                System.out.println("NonVirtualOrigin" +tmpTestNode.getNonVirtualOriginSmilesList().get(0) + "Size" + tmpTestNode.getNonVirtualOriginSmilesList().size());
+            System.out.println("First Origin: " + tmpTestNode.getOriginSmilesList().get(0));
+            if (!tmpTestNode.getNonVirtualOriginCount().equals(0)){
+                System.out.println("First NonVirtualOrigin: " +tmpTestNode.getNonVirtualOriginSmilesList().get(0));
             }
             for(Object tmpChildObject : tmpTestNode.getChildren()) {
                 TreeNode tmpChildNode = (TreeNode) tmpChildObject;
@@ -178,32 +183,27 @@ public class GraphStreamUtilityTest {
             }
         }
         System.out.println("Max Lvl: " + tmpScaffoldTree.getMaxLevel());
-        /*Display the Tree*/
+        /*Display the tree*/
         GraphStreamUtility.displayWithGraphStream(tmpScaffoldTree, true);
-        TimeUnit.SECONDS.sleep(5);
+        GraphStreamUtility.screenshotGraphHighQuality(GraphStreamUtility.generateGraphFromScaffoldNodeCollection(tmpScaffoldTree),
+                GraphStreamUtility.getGraphStreamDisplayFolder().getAbsolutePath() + File.separatorChar + "Flucloxacillin_ScaffoldTree.png");
+        TimeUnit.SECONDS.sleep(10);
     }
     //
     /**
-     * Creates a ScaffoldNetwork from a V2000 or V3000 mol file and displays it as a network with GraphStream.
+     * Creates a ScaffoldNetwork from a V2000 or V3000 mol file of Flucloxacillin and displays it as a scaffold network with GraphStream.
      * @throws Exception if anything goes wrong
      */
     @Test
-    public void graphStreamNetworkTest3() throws Exception {
+    public void graphStreamNetworkTestFlucloxacillin() throws Exception {
         String tmpFileName = "Test3" ;
         //Load molecule from molfile
         IAtomContainer tmpMolecule = this.loadMolFile(tmpFileName);
-        //Generate a tree of molecules with iteratively removed terminal rings
+        //Generate scaffold network
         ScaffoldGenerator tmpScaffoldGenerator = new ScaffoldGenerator();
         ScaffoldNetwork tmpScaffoldNetwork = tmpScaffoldGenerator.generateScaffoldNetwork(tmpMolecule);
-        /*Remove some nodes. Nodes can be removed from the non-root end.
-        If nodes are removed in the middle of the tree, it cannot be displayed with Graphstream.*/
-        System.out.println(tmpScaffoldNetwork.getAllNodes().size());
-        //tmpScaffoldNetwork.removeNode(tmpScaffoldNetwork.getMatrixNode(0));
-        NetworkNode tmpRemoveNode = (NetworkNode) tmpScaffoldNetwork.getMatrixNode(9);
-        tmpScaffoldNetwork.removeNode(tmpRemoveNode);
-        System.out.println(tmpScaffoldNetwork.getAllNodes().size());
-        /*Print some further information*/
-        System.out.println("Root size: " + tmpScaffoldNetwork.getRoots().size());
+        //Print some further information
+        System.out.println("Roots size: " + tmpScaffoldNetwork.getRoots().size());
         SmilesGenerator tmpSmilesGenerator = new SmilesGenerator(SmiFlavor.Unique);
         for(ScaffoldNodeBase tmpTestNodeBase : tmpScaffoldNetwork.getAllNodes()) {
             NetworkNode tmpTestNode = (NetworkNode) tmpTestNodeBase;
@@ -211,9 +211,9 @@ public class GraphStreamUtilityTest {
             System.out.println("--- Node: " + tmpSmilesGenerator.create(tmpTestMolecule) + " ---");
             System.out.println("Node on LvL: " + tmpTestNode.getLevel());
             System.out.println("Children Number: " + tmpTestNode.getChildren().size());
-            System.out.println("Origin" +tmpTestNode.getOriginSmilesList().get(0) + "Size" + tmpTestNode.getOriginSmilesList().size());
+            System.out.println("First Origin: " + tmpTestNode.getOriginSmilesList().get(0));
             if(!tmpTestNode.getNonVirtualOriginCount().equals(0)){
-                System.out.println("NonVirtualOrigin" +tmpTestNode.getNonVirtualOriginSmilesList().get(0) + "Size" + tmpTestNode.getNonVirtualOriginSmilesList().size());
+                System.out.println("First NonVirtualOrigin: " +tmpTestNode.getNonVirtualOriginSmilesList().get(0));
             }
             for(Object tmpChildObject : tmpTestNode.getChildren()) {
                 NetworkNode tmpChildNode = (NetworkNode) tmpChildObject;
@@ -224,49 +224,44 @@ public class GraphStreamUtilityTest {
         System.out.println("Max Lvl: " + tmpScaffoldNetwork.getMaxLevel());
         /*Display the network*/
         GraphStreamUtility.displayWithGraphStream(tmpScaffoldNetwork, true);
-        TimeUnit.SECONDS.sleep(5);
+        GraphStreamUtility.screenshotGraphHighQuality(GraphStreamUtility.generateGraphFromScaffoldNodeCollection(tmpScaffoldNetwork),
+                GraphStreamUtility.getGraphStreamDisplayFolder().getAbsolutePath() + File.separatorChar + "Flucloxacillin_ScaffoldNetwork.png");
+        TimeUnit.SECONDS.sleep(10);
     }
     //
     /**
-     * Loads Figure 1 from the "Mining for Bioactive Scaffolds with Scaffold Networks"(2011) Paper by Varin et al.
-     * Creates the Scaffold Networks of Ondasetron, Alosetron or Ramosetron. The result is visualised with GraphStream.
-     * By selecting the corresponding lines, the molecule to be displayed can be chosen.
+     * Recreates Figure 1 from the <a href="https://doi.org/10.1021/ci2000924">"Mining for Bioactive Scaffolds with Scaffold Networks"(2011) Paper by Varin et al</a>.
+     * Creates the scaffold networks of Ondasetron, Alosetron, and Ramosetron. The result is visualised with GraphStream.
      * @throws Exception if anything goes wrong
      */
     @Test
-    public void getFigure1NetworkTest() throws Exception {
-        //SMILES to IAtomContainer
+    public void scaffoldNetworkArticleFigure1NetworkTest() throws Exception {
         SmilesParser tmpParser  = new SmilesParser(SilentChemObjectBuilder.getInstance());
-        IAtomContainer tmpMolecule1 = tmpParser.parseSmiles("CC1=NC=CN1CC2CCC3=C(C2=O)C4=CC=CC=C4N3C");//Ondasetron
-        IAtomContainer tmpMolecule2 = tmpParser.parseSmiles("CC1=C(N=CN1)CN2CCC3=C(C2=O)C4=CC=CC=C4N3C");//Alosetron
-        IAtomContainer tmpMolecule3 = tmpParser.parseSmiles("CN1C=C(C2=CC=CC=C21)C(=O)C3CCC4=C(C3)NC=N4");//Ramosetron
-        //Generate a Network of molecules with iteratively removed terminal rings
+        IAtomContainer tmpOndasetron = tmpParser.parseSmiles("CC1=NC=CN1CC2CCC3=C(C2=O)C4=CC=CC=C4N3C");//Ondasetron
+        IAtomContainer tmpAlosetron = tmpParser.parseSmiles("CC1=C(N=CN1)CN2CCC3=C(C2=O)C4=CC=CC=C4N3C");//Alosetron
+        IAtomContainer tmpRamosetron = tmpParser.parseSmiles("CN1C=C(C2=CC=CC=C21)C(=O)C3CCC4=C(C3)NC=N4");//Ramosetron
         ScaffoldGenerator tmpScaffoldGenerator = new ScaffoldGenerator();
-        /*Uncomment the molecule to display it*/
-        ScaffoldNetwork tmpScaffoldNetwork = tmpScaffoldGenerator.generateScaffoldNetwork(tmpMolecule1);//Ondasetron
-        //ScaffoldNetwork tmpScaffoldNetwork = tmpScaffoldGenerator.generateScaffoldNetwork(tmpMolecule2);//Alosetron
-        //ScaffoldNetwork tmpScaffoldNetwork = tmpScaffoldGenerator.generateScaffoldNetwork(tmpMolecule3);//Ramosetron
-        /*Print some further information*/
-        System.out.println("Root size: " + tmpScaffoldNetwork.getRoots().size());
-        SmilesGenerator tmpSmilesGenerator = new SmilesGenerator(SmiFlavor.Unique);
-        for(ScaffoldNodeBase tmpTestNodeBase : tmpScaffoldNetwork.getAllNodes()) {
-            NetworkNode tmpTestNode = (NetworkNode) tmpTestNodeBase;
-            IAtomContainer tmpTestMolecule = (IAtomContainer) tmpTestNode.getMolecule();
-            System.out.println("--- Node: " + tmpSmilesGenerator.create(tmpTestMolecule) + " ---");
-            System.out.println("Node on LvL: " + tmpTestNode.getLevel());
-            System.out.println("Children Number: " + tmpTestNode.getChildren().size());
-            for(Object tmpOrigin : tmpTestNode.getOriginSmilesList()) {
-                System.out.println("Origin: " + tmpOrigin);
-            }
-            for(Object tmpChildObject : tmpTestNode.getChildren()) {
-                NetworkNode tmpChildNode = (NetworkNode) tmpChildObject;
-                IAtomContainer tmpChildMolecule = (IAtomContainer) tmpChildNode.getMolecule();
-                System.out.println("Child: " + tmpSmilesGenerator.create(tmpChildMolecule));
-            }
-        }
+        ScaffoldNetwork tmpOndasetronScaffoldNetwork = tmpScaffoldGenerator.generateScaffoldNetwork(tmpOndasetron);
+        ScaffoldNetwork tmpAlosetronScaffoldNetwork = tmpScaffoldGenerator.generateScaffoldNetwork(tmpAlosetron);
+        ScaffoldNetwork tmpRamosetronScaffoldNetwork = tmpScaffoldGenerator.generateScaffoldNetwork(tmpRamosetron);
         /*Display the network*/
-        GraphStreamUtility.displayWithGraphStream(tmpScaffoldNetwork, true);
-        TimeUnit.SECONDS.sleep(5);
+        GraphStreamUtility.displayWithGraphStream(tmpOndasetronScaffoldNetwork, true);
+        //GraphStreamUtility.screenshotGraphHighQuality(GraphStreamUtility.generateGraphFromScaffoldNodeCollection(tmpOndasetronScaffoldNetwork),
+          //      GraphStreamUtility.getGraphStreamDisplayFolder().getAbsolutePath() + File.separatorChar + "Ondasetron_ScaffoldNetwork.png");
+        GraphStreamUtility.displayWithGraphStream(tmpAlosetronScaffoldNetwork, true);
+        //GraphStreamUtility.screenshotGraphHighQuality(GraphStreamUtility.generateGraphFromScaffoldNodeCollection(tmpAlosetronScaffoldNetwork),
+          //      GraphStreamUtility.getGraphStreamDisplayFolder().getAbsolutePath() + File.separatorChar + "Alosetron_ScaffoldNetwork.png");
+        GraphStreamUtility.displayWithGraphStream(tmpRamosetronScaffoldNetwork, true);
+        //GraphStreamUtility.screenshotGraphHighQuality(GraphStreamUtility.generateGraphFromScaffoldNodeCollection(tmpRamosetronScaffoldNetwork),
+          //      GraphStreamUtility.getGraphStreamDisplayFolder().getAbsolutePath() + File.separatorChar + "Ramosetron_ScaffoldNetwork.png");
+        ScaffoldNetwork tmpMergedNetwork = new ScaffoldNetwork();
+        tmpMergedNetwork.mergeNetwork(tmpOndasetronScaffoldNetwork);
+        tmpMergedNetwork.mergeNetwork(tmpAlosetronScaffoldNetwork);
+        tmpMergedNetwork.mergeNetwork(tmpRamosetronScaffoldNetwork);
+        GraphStreamUtility.displayWithGraphStream(tmpMergedNetwork, true);
+        //GraphStreamUtility.screenshotGraphHighQuality(GraphStreamUtility.generateGraphFromScaffoldNodeCollection(tmpMergedNetwork),
+          //      GraphStreamUtility.getGraphStreamDisplayFolder().getAbsolutePath() + File.separatorChar + "Merged_ScaffoldNetwork.png");
+        TimeUnit.SECONDS.sleep(10);
     }
     //
     /**

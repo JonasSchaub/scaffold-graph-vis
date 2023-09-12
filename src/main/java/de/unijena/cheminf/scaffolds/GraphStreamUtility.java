@@ -35,7 +35,9 @@ import org.openscience.cdk.tools.scaffold.ScaffoldTree;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -485,9 +487,10 @@ public class GraphStreamUtility {
             IAtomContainer tmpCollectionNodeMolecule = tmpCollectionLevelNode.getMolecule();
             try {
                 BufferedImage tmpNodeImg = aCDKDepictionGenerator.depict(tmpCollectionNodeMolecule).toImg();
-                /*The images need to be stored temporarily btu are deleted on JRE exit*/
-                File tmpTemporaryImageFile = new File(GraphStreamUtility.tempFolder.getPath()
-                        + File.separatorChar + "GraphStream" + tmpRowIndex + ".png");
+                /*The images need to be stored temporarily but are deleted on JRE exit*/
+                File tmpTemporaryImageFile = new File(URLEncoder.encode(File.createTempFile("GraphStream", ".png", GraphStreamUtility.tempFolder).getAbsolutePath(), "UTF-8"));
+                //File tmpTemporaryImageFile = new File(GraphStreamUtility.tempFolder.getPath()
+                //        + File.separatorChar + tmpUUID + ".png");
                 ImageIO.write(tmpNodeImg, "png", tmpTemporaryImageFile);
                 //set the images
                 //alternative fill-mode: image-scaled-ratio-max
@@ -520,8 +523,9 @@ public class GraphStreamUtility {
      * @param aFilePath file path were the screenshot should be created (existing files will be overridden)
      * @throws NullPointerException if any parameter is null
      * @throws IllegalArgumentException if any parameter does not fulfil its requirements
+     * @throws IOException if an I/O error occurs while writing
      */
-    public static void screenshotGraph(Graph aGraph, String aFilePath) throws NullPointerException, IllegalArgumentException {
+    public static void screenshotGraph(Graph aGraph, String aFilePath) throws NullPointerException, IllegalArgumentException, IOException {
         Objects.requireNonNull(aGraph, "Given Graph instance is null.");
         Objects.requireNonNull(aFilePath, "Given file path is null.");
         if (aFilePath.isBlank()) {
@@ -529,6 +533,10 @@ public class GraphStreamUtility {
         }
         File tmpTargetFile = new File(aFilePath);
         try {
+            if (!tmpTargetFile.exists()) {
+                tmpTargetFile.getParentFile().mkdirs();
+                tmpTargetFile.createNewFile();
+            }
             if (!tmpTargetFile.canRead() || !tmpTargetFile.canWrite() || !tmpTargetFile.isFile()) {
                 throw new IllegalArgumentException("Given file path " + aFilePath +" is not a file or cannot be read from or written to.");
             }
@@ -548,8 +556,9 @@ public class GraphStreamUtility {
      * @param aFilePath file path were the screenshot should be created (existing files will be overridden)
      * @throws NullPointerException if any parameter is null
      * @throws IllegalArgumentException if any parameter does not fulfil its requirements
+     * @throws IOException if an I/O error occurs while writing
      */
-    public static void screenshotGraphHighQuality(Graph aGraph, String aFilePath) throws IOException {
+    public static void screenshotGraphHighQuality(Graph aGraph, String aFilePath) throws NullPointerException, IllegalArgumentException, IOException {
         FileSinkImages tmpFileSinkImages = FileSinkImages.createDefault();
         tmpFileSinkImages.setOutputType(FileSinkImages.OutputType.png);
         tmpFileSinkImages.setQuality(FileSinkImages.Quality.HIGH);
@@ -567,8 +576,9 @@ public class GraphStreamUtility {
      * @param aFileSinkImages FileSinkImages instance with custom configuration to create the screenshot
      * @throws NullPointerException if any parameter is null
      * @throws IllegalArgumentException if any parameter does not fulfil its requirements
+     * @throws IOException if an I/O error occurs while writing
      */
-    public static void screenshotGraphHighQuality(Graph aGraph, String aFilePath, FileSinkImages aFileSinkImages) throws IOException {
+    public static void screenshotGraphHighQuality(Graph aGraph, String aFilePath, FileSinkImages aFileSinkImages) throws NullPointerException, IllegalArgumentException, IOException {
         Objects.requireNonNull(aGraph, "Given Graph instance is null.");
         Objects.requireNonNull(aFilePath, "Given file path is null.");
         Objects.requireNonNull(aFileSinkImages, "Given FileSinkImages instance is null.");
@@ -577,6 +587,10 @@ public class GraphStreamUtility {
         }
         File tmpTargetFile = new File(aFilePath);
         try {
+            if (!tmpTargetFile.exists()) {
+                tmpTargetFile.getParentFile().mkdirs();
+                tmpTargetFile.createNewFile();
+            }
             if (!tmpTargetFile.canRead() || !tmpTargetFile.canWrite() || !tmpTargetFile.isFile()) {
                 throw new IllegalArgumentException("Given file path " + aFilePath +" is not a file or cannot be read from or written to.");
             }
