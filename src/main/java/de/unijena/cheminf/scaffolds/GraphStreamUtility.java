@@ -35,9 +35,7 @@ import org.openscience.cdk.tools.scaffold.ScaffoldTree;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.util.Objects;
-import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -171,6 +169,8 @@ public class GraphStreamUtility {
     //
     /**
      * The ScaffoldNodeCollectionBase (scaffold network or tree) is displayed in an application window using GraphStream.
+     * <br>NOTE: It is not recommended displaying multiple graphs at the same time using this method because of
+     * multithreading issues.
      *
      * @param aScaffoldNodeCollection displayed scaffold graph
      * @throws NullPointerException if any parameter is null
@@ -190,6 +190,8 @@ public class GraphStreamUtility {
     /**
      * The ScaffoldNodeCollectionBase (scaffold network or tree) is displayed in an application window using GraphStream.
      * The optional numbering of the nodes reflects their respective indices in the exported adjacency matrix and their level in the graph.
+     * <br>NOTE: It is not recommended displaying multiple graphs at the same time using this method because of
+     * multithreading issues.
      *
      * @param aScaffoldNodeCollection displayed scaffold graph
      * @param areNodesLabelled adds a label with node level and node index if true
@@ -212,6 +214,8 @@ public class GraphStreamUtility {
     /**
      * The ScaffoldNodeCollectionBase (scaffold network or tree) is displayed in an application window using GraphStream.
      * The optional numbering of the nodes reflects their respective indices in the exported adjacency matrix and their level in the graph.
+     * <br>NOTE: It is not recommended displaying multiple graphs at the same time using this method because of
+     * multithreading issues.
      *
      * @param aScaffoldNodeCollection displayed scaffold graph
      * @param areNodesLabelled adds a label with node level and node index if true
@@ -235,6 +239,8 @@ public class GraphStreamUtility {
     /**
      * The ScaffoldNodeCollectionBase (scaffold network or tree) is displayed in an application window using GraphStream.
      * The optional numbering of the nodes reflects their respective indices in the exported adjacency matrix and their level in the graph.
+     * <br>NOTE: It is not recommended displaying multiple graphs at the same time using this method because of
+     * multithreading issues.
      *
      * @param aScaffoldNodeCollection displayed scaffold graph
      * @param areNodesLabelled adds a label with node level and node index if true
@@ -261,6 +267,8 @@ public class GraphStreamUtility {
      * The ScaffoldNodeCollectionBase (scaffold network or tree) is displayed in an application window using GraphStream.
      * The optional numbering of the nodes reflects their respective indices in the exported adjacency matrix and their level in the graph.
      * The GraphStream UI property defines which graphics library is employed, Java Swing (more reliable) or JavaFX (more experimental).
+     * <br>NOTE: It is not recommended displaying multiple graphs at the same time using this method because of
+     * multithreading issues.
      *
      * @param aScaffoldNodeCollection displayed scaffold graph
      * @param areNodesLabelled adds a label with node level and node index if true
@@ -488,7 +496,7 @@ public class GraphStreamUtility {
             try {
                 BufferedImage tmpNodeImg = aCDKDepictionGenerator.depict(tmpCollectionNodeMolecule).toImg();
                 /*The images need to be stored temporarily but are deleted on JRE exit*/
-                File tmpTemporaryImageFile = new File(URLEncoder.encode(File.createTempFile("GraphStream", ".png", GraphStreamUtility.tempFolder).getAbsolutePath(), "UTF-8"));
+                File tmpTemporaryImageFile = File.createTempFile("GraphStream", ".png", GraphStreamUtility.tempFolder);
                 //File tmpTemporaryImageFile = new File(GraphStreamUtility.tempFolder.getPath()
                 //        + File.separatorChar + tmpUUID + ".png");
                 ImageIO.write(tmpNodeImg, "png", tmpTemporaryImageFile);
@@ -551,6 +559,8 @@ public class GraphStreamUtility {
     //
     /**
      * Creates a high quality screenshot of the given graph using the FileSinkImages method writeAll().
+     * <br>NOTE: It is not recommended screenshotting multiple graphs at the same time using this method because of
+     * multithreading issues.
      *
      * @param aGraph graph to screenshot
      * @param aFilePath file path were the screenshot should be created (existing files will be overridden)
@@ -570,6 +580,8 @@ public class GraphStreamUtility {
     //
     /**
      * Creates a high quality screenshot of the given graph using the FileSinkImages method writeAll().
+     * <br>NOTE: It is not recommended screenshotting multiple graphs at the same time using this method because of
+     * multithreading issues.
      *
      * @param aGraph graph to screenshot
      * @param aFilePath file path were the screenshot should be created (existing files will be overridden)

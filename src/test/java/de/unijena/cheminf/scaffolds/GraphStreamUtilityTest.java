@@ -231,7 +231,61 @@ public class GraphStreamUtilityTest {
     //
     /**
      * Recreates Figure 1 from the <a href="https://doi.org/10.1021/ci2000924">"Mining for Bioactive Scaffolds with Scaffold Networks"(2011) Paper by Varin et al</a>.
-     * Creates the scaffold networks of Ondasetron, Alosetron, and Ramosetron. The result is visualised with GraphStream.
+     * Creates the scaffold network of Ondasetron. The result is visualised with GraphStream.
+     * @throws Exception if anything goes wrong
+     */
+    @Test
+    public void scaffoldNetworkArticleFigure1ANetworkTest() throws Exception {
+        SmilesParser tmpParser  = new SmilesParser(SilentChemObjectBuilder.getInstance());
+        IAtomContainer tmpOndasetron = tmpParser.parseSmiles("CC1=NC=CN1CC2CCC3=C(C2=O)C4=CC=CC=C4N3C");//Ondasetron
+        ScaffoldGenerator tmpScaffoldGenerator = new ScaffoldGenerator();
+        ScaffoldNetwork tmpOndasetronScaffoldNetwork = tmpScaffoldGenerator.generateScaffoldNetwork(tmpOndasetron);
+        /*Display the network*/
+        GraphStreamUtility.displayWithGraphStream(tmpOndasetronScaffoldNetwork, true);
+        GraphStreamUtility.screenshotGraphHighQuality(GraphStreamUtility.generateGraphFromScaffoldNodeCollection(tmpOndasetronScaffoldNetwork),
+                GraphStreamUtility.getGraphStreamDisplayFolder().getAbsolutePath() + File.separatorChar + "Ondasetron_ScaffoldNetwork.png");
+        TimeUnit.SECONDS.sleep(10);
+    }
+    //
+    /**
+     * Recreates Figure 1 from the <a href="https://doi.org/10.1021/ci2000924">"Mining for Bioactive Scaffolds with Scaffold Networks"(2011) Paper by Varin et al</a>.
+     * Creates the scaffold networks of Alosetron. The result is visualised with GraphStream.
+     * @throws Exception if anything goes wrong
+     */
+    @Test
+    public void scaffoldNetworkArticleFigure1BNetworkTest() throws Exception {
+        SmilesParser tmpParser  = new SmilesParser(SilentChemObjectBuilder.getInstance());
+        IAtomContainer tmpAlosetron = tmpParser.parseSmiles("CC1=C(N=CN1)CN2CCC3=C(C2=O)C4=CC=CC=C4N3C");//Alosetron
+        ScaffoldGenerator tmpScaffoldGenerator = new ScaffoldGenerator();
+        ScaffoldNetwork tmpAlosetronScaffoldNetwork = tmpScaffoldGenerator.generateScaffoldNetwork(tmpAlosetron);
+        /*Display the network*/
+        GraphStreamUtility.displayWithGraphStream(tmpAlosetronScaffoldNetwork, true);
+        GraphStreamUtility.screenshotGraphHighQuality(GraphStreamUtility.generateGraphFromScaffoldNodeCollection(tmpAlosetronScaffoldNetwork),
+              GraphStreamUtility.getGraphStreamDisplayFolder().getAbsolutePath() + File.separatorChar + "Alosetron_ScaffoldNetwork.png");
+        TimeUnit.SECONDS.sleep(10);
+    }
+    //
+    /**
+     * Recreates Figure 1 from the <a href="https://doi.org/10.1021/ci2000924">"Mining for Bioactive Scaffolds with Scaffold Networks"(2011) Paper by Varin et al</a>.
+     * Creates the scaffold networks of Ramosetron. The result is visualised with GraphStream.
+     * @throws Exception if anything goes wrong
+     */
+    @Test
+    public void scaffoldNetworkArticleFigure1CNetworkTest() throws Exception {
+        SmilesParser tmpParser  = new SmilesParser(SilentChemObjectBuilder.getInstance());
+        IAtomContainer tmpRamosetron = tmpParser.parseSmiles("CN1C=C(C2=CC=CC=C21)C(=O)C3CCC4=C(C3)NC=N4");//Ramosetron
+        ScaffoldGenerator tmpScaffoldGenerator = new ScaffoldGenerator();
+        ScaffoldNetwork tmpRamosetronScaffoldNetwork = tmpScaffoldGenerator.generateScaffoldNetwork(tmpRamosetron);
+        /*Display the network*/
+        GraphStreamUtility.displayWithGraphStream(tmpRamosetronScaffoldNetwork, true);
+        GraphStreamUtility.screenshotGraphHighQuality(GraphStreamUtility.generateGraphFromScaffoldNodeCollection(tmpRamosetronScaffoldNetwork),
+              GraphStreamUtility.getGraphStreamDisplayFolder().getAbsolutePath() + File.separatorChar + "Ramosetron_ScaffoldNetwork.png");
+        TimeUnit.SECONDS.sleep(10);
+    }
+    //
+    /**
+     * Recreates Figure 1 from the <a href="https://doi.org/10.1021/ci2000924">"Mining for Bioactive Scaffolds with Scaffold Networks"(2011) Paper by Varin et al</a>.
+     * Creates the scaffold network of Ondasetron, Alosetron, Ramosetron. The result is visualised with GraphStream and written to a screenshot file.
      * @throws Exception if anything goes wrong
      */
     @Test
@@ -240,30 +294,17 @@ public class GraphStreamUtilityTest {
         IAtomContainer tmpOndasetron = tmpParser.parseSmiles("CC1=NC=CN1CC2CCC3=C(C2=O)C4=CC=CC=C4N3C");//Ondasetron
         IAtomContainer tmpAlosetron = tmpParser.parseSmiles("CC1=C(N=CN1)CN2CCC3=C(C2=O)C4=CC=CC=C4N3C");//Alosetron
         IAtomContainer tmpRamosetron = tmpParser.parseSmiles("CN1C=C(C2=CC=CC=C21)C(=O)C3CCC4=C(C3)NC=N4");//Ramosetron
+        List<IAtomContainer> tmpInputList = new ArrayList<>(3);
+        tmpInputList.add(tmpOndasetron);
+        tmpInputList.add(tmpAlosetron);
+        tmpInputList.add(tmpRamosetron);
         ScaffoldGenerator tmpScaffoldGenerator = new ScaffoldGenerator();
-        ScaffoldNetwork tmpOndasetronScaffoldNetwork = tmpScaffoldGenerator.generateScaffoldNetwork(tmpOndasetron);
-        ScaffoldNetwork tmpAlosetronScaffoldNetwork = tmpScaffoldGenerator.generateScaffoldNetwork(tmpAlosetron);
-        ScaffoldNetwork tmpRamosetronScaffoldNetwork = tmpScaffoldGenerator.generateScaffoldNetwork(tmpRamosetron);
-        /*Display the network*/
-        GraphStreamUtility.displayWithGraphStream(tmpOndasetronScaffoldNetwork, true);
-        //GraphStreamUtility.screenshotGraphHighQuality(GraphStreamUtility.generateGraphFromScaffoldNodeCollection(tmpOndasetronScaffoldNetwork),
-          //      GraphStreamUtility.getGraphStreamDisplayFolder().getAbsolutePath() + File.separatorChar + "Ondasetron_ScaffoldNetwork.png");
-        GraphStreamUtility.displayWithGraphStream(tmpAlosetronScaffoldNetwork, true);
-        //GraphStreamUtility.screenshotGraphHighQuality(GraphStreamUtility.generateGraphFromScaffoldNodeCollection(tmpAlosetronScaffoldNetwork),
-          //      GraphStreamUtility.getGraphStreamDisplayFolder().getAbsolutePath() + File.separatorChar + "Alosetron_ScaffoldNetwork.png");
-        GraphStreamUtility.displayWithGraphStream(tmpRamosetronScaffoldNetwork, true);
-        //GraphStreamUtility.screenshotGraphHighQuality(GraphStreamUtility.generateGraphFromScaffoldNodeCollection(tmpRamosetronScaffoldNetwork),
-          //      GraphStreamUtility.getGraphStreamDisplayFolder().getAbsolutePath() + File.separatorChar + "Ramosetron_ScaffoldNetwork.png");
-        ScaffoldNetwork tmpMergedNetwork = new ScaffoldNetwork();
-        tmpMergedNetwork.mergeNetwork(tmpOndasetronScaffoldNetwork);
-        tmpMergedNetwork.mergeNetwork(tmpAlosetronScaffoldNetwork);
-        tmpMergedNetwork.mergeNetwork(tmpRamosetronScaffoldNetwork);
-        GraphStreamUtility.displayWithGraphStream(tmpMergedNetwork, true);
-        //GraphStreamUtility.screenshotGraphHighQuality(GraphStreamUtility.generateGraphFromScaffoldNodeCollection(tmpMergedNetwork),
-          //      GraphStreamUtility.getGraphStreamDisplayFolder().getAbsolutePath() + File.separatorChar + "Merged_ScaffoldNetwork.png");
-        TimeUnit.SECONDS.sleep(10);
+        ScaffoldNetwork tmpScaffoldNetwork = tmpScaffoldGenerator.generateScaffoldNetwork(tmpInputList);
+        GraphStreamUtility.screenshotGraphHighQuality(GraphStreamUtility.generateGraphFromScaffoldNodeCollection(tmpScaffoldNetwork),
+                GraphStreamUtility.getGraphStreamDisplayFolder().getAbsolutePath() + File.separatorChar + "Figure1_ScaffoldNetwork.png");
     }
     //
+    //TODO: carry on here
     /**
      * Creates different ScaffoldTrees and merges them. The result is visualised with GraphStream.
      * @throws Exception if anything goes wrong
