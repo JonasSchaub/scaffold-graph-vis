@@ -497,8 +497,6 @@ public class GraphStreamUtility {
                 BufferedImage tmpNodeImg = aCDKDepictionGenerator.depict(tmpCollectionNodeMolecule).toImg();
                 /*The images need to be stored temporarily but are deleted on JRE exit*/
                 File tmpTemporaryImageFile = File.createTempFile("GraphStream", ".png", GraphStreamUtility.tempFolder);
-                //File tmpTemporaryImageFile = new File(GraphStreamUtility.tempFolder.getPath()
-                //        + File.separatorChar + tmpUUID + ".png");
                 ImageIO.write(tmpNodeImg, "png", tmpTemporaryImageFile);
                 //set the images
                 //alternative fill-mode: image-scaled-ratio-max
