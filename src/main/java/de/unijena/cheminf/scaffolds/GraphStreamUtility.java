@@ -44,6 +44,9 @@ import javax.imageio.ImageIO;
 /**
  * Contains functionalities to visualise CDK-Scaffold-generated scaffold networks and trees in a
  * very basic way, employing the open GraphStream graph library.
+ * Please note that this is a very basic functionality primarily meant for visual inspection and debugging.
+ * GraphStream might also throw errors in some cases where the problem lies with the library, not
+ * this functionality here.
  *
  * @author Julian Zander, Jonas Schaub (zanderjulian@gmx.de, jonas.schaub@uni-jena.de)
  * @version 1.1.0.0

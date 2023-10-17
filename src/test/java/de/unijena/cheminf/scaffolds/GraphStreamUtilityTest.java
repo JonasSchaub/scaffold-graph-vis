@@ -22,6 +22,8 @@ package de.unijena.cheminf.scaffolds;
 
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.SingleGraph;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IChemObjectBuilder;
@@ -48,6 +50,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Test class showcasing the capabilities of the GraphStream scaffold graph visualisation functionality.
+ * Please note that most of this is code for example usage of the functionality, not actual test code.
  *
  *  @author Julian Zander, Jonas Schaub (zanderjulian@gmx.de, jonas.schaub@uni-jena.de)
  *  @version 1.0.0.0
@@ -60,6 +63,7 @@ public class GraphStreamUtilityTest {
      *
      * @throws Exception if anything goes wrong
      */
+    @Disabled
     @Test
     public void graphStreamTreeTest() throws Exception {
         SmilesParser tmpParser = new SmilesParser(SilentChemObjectBuilder.getInstance());
@@ -80,6 +84,7 @@ public class GraphStreamUtilityTest {
         //screenshot the graph in both ways available
         GraphStreamUtility.screenshotGraph(tmpGraph, GraphStreamUtility.getGraphStreamDisplayFolder().getAbsolutePath() + File.separatorChar + "Sertraline_ScaffoldTree_low.png");
         GraphStreamUtility.screenshotGraphHighQuality(tmpGraph, GraphStreamUtility.getGraphStreamDisplayFolder().getAbsolutePath() + File.separatorChar + "Sertraline_ScaffoldTree.png");
+        //to make the window stay open for ten seconds, it would close again immediately otherwise
         TimeUnit.SECONDS.sleep(10);
     }
     //
@@ -90,6 +95,7 @@ public class GraphStreamUtilityTest {
      *
      * @throws Exception if anything goes wrong
      */
+    @Disabled
     @Test
     public void graphStreamNetworkTest() throws Exception {
         SmilesParser tmpParser = new SmilesParser(SilentChemObjectBuilder.getInstance());
@@ -108,6 +114,7 @@ public class GraphStreamUtilityTest {
      *
      * @throws Exception if anything goes wrong
      */
+    @Disabled
     @Test
     public void graphStreamTreeMergeTest() throws Exception {
         SmilesParser tmpParser = new SmilesParser(SilentChemObjectBuilder.getInstance());
@@ -135,6 +142,7 @@ public class GraphStreamUtilityTest {
      *
      * @throws Exception if anything goes wrong
      */
+    @Disabled
     @Test
     public void graphStreamNetworkMergeTest() throws Exception {
         SmilesParser tmpParser = new SmilesParser(SilentChemObjectBuilder.getInstance());
@@ -154,6 +162,7 @@ public class GraphStreamUtilityTest {
      * Some additional information is printed for every scaffold node.
      * @throws Exception if anything goes wrong
      */
+    @Disabled
     @Test
     public void graphStreamTreeTestFlucloxacillin() throws Exception {
         String tmpFileName = "Test3" ;
@@ -193,6 +202,7 @@ public class GraphStreamUtilityTest {
      * Creates a ScaffoldNetwork from a V2000 or V3000 mol file of Flucloxacillin and displays it as a scaffold network with GraphStream.
      * @throws Exception if anything goes wrong
      */
+    @Disabled
     @Test
     public void graphStreamNetworkTestFlucloxacillin() throws Exception {
         String tmpFileName = "Test3" ;
@@ -233,6 +243,7 @@ public class GraphStreamUtilityTest {
      * Creates the scaffold network of Ondasetron. The result is visualised with GraphStream.
      * @throws Exception if anything goes wrong
      */
+    @Disabled
     @Test
     public void scaffoldNetworkArticleFigure1ANetworkTest() throws Exception {
         SmilesParser tmpParser = new SmilesParser(SilentChemObjectBuilder.getInstance());
@@ -251,6 +262,7 @@ public class GraphStreamUtilityTest {
      * Creates the scaffold networks of Alosetron. The result is visualised with GraphStream.
      * @throws Exception if anything goes wrong
      */
+    @Disabled
     @Test
     public void scaffoldNetworkArticleFigure1BNetworkTest() throws Exception {
         SmilesParser tmpParser = new SmilesParser(SilentChemObjectBuilder.getInstance());
@@ -269,6 +281,7 @@ public class GraphStreamUtilityTest {
      * Creates the scaffold networks of Ramosetron. The result is visualised with GraphStream.
      * @throws Exception if anything goes wrong
      */
+    @Disabled
     @Test
     public void scaffoldNetworkArticleFigure1CNetworkTest() throws Exception {
         SmilesParser tmpParser = new SmilesParser(SilentChemObjectBuilder.getInstance());
@@ -287,6 +300,7 @@ public class GraphStreamUtilityTest {
      * Creates the scaffold network of Ondasetron, Alosetron, Ramosetron. The result is visualised with GraphStream and written to a screenshot file.
      * @throws Exception if anything goes wrong
      */
+    @Disabled
     @Test
     public void scaffoldNetworkArticleFigure1NetworkTest() throws Exception {
         SmilesParser tmpParser  = new SmilesParser(SilentChemObjectBuilder.getInstance());
@@ -308,6 +322,7 @@ public class GraphStreamUtilityTest {
      * Creates multiple scaffold trees of some "fantasy molecules" and merges them. The result is visualised with GraphStream.
      * @throws Exception if anything goes wrong
      */
+    @Disabled
     @Test
     public void mergeTreeDisplayTest() throws Exception {
         SmilesParser tmpParser = new SmilesParser(SilentChemObjectBuilder.getInstance());
@@ -341,6 +356,7 @@ public class GraphStreamUtilityTest {
      * A network is added here that has no connection to the rest of the network. It is displayable in principle, but not optimal.
      * @throws Exception if anything goes wrong
      */
+    @Disabled
     @Test
     public void mergeNetworkDisplayTest() throws Exception {
         SmilesParser tmpParser = new SmilesParser(SilentChemObjectBuilder.getInstance());
@@ -368,6 +384,7 @@ public class GraphStreamUtilityTest {
      * Creates multiple scaffold trees and merges them. The result is visualised with GraphStream.
      * @throws Exception if anything goes wrong
      */
+    @Disabled
     @Test
     public void mergeMoleculesToForestTest() throws Exception {
         ScaffoldGenerator tmpScaffoldGenerator = new ScaffoldGenerator();
@@ -397,9 +414,34 @@ public class GraphStreamUtilityTest {
         System.out.println("Forest size: " + tmpFinalForest.size());
         ScaffoldTree tmpScaffoldTree = tmpFinalForest.get(0);
         GraphStreamUtility.displayWithGraphStream(tmpScaffoldTree, true);
+        //GraphStream throws an error here for an unknown reason
         //GraphStreamUtility.screenshotGraphHighQuality(GraphStreamUtility.generateGraphFromScaffoldNodeCollection(tmpScaffoldTree),
         //        GraphStreamUtility.getGraphStreamDisplayFolder().getAbsolutePath() + File.separatorChar + "Pyrimidines_ScaffoldTree_2.png");
         TimeUnit.SECONDS.sleep(10);
+    }
+    //
+    /**
+     * Imports Sertraline (PubChem CID 68617) from a SMILES string.
+     * Generates the Schuffenhauer tree of this molecule.
+     * This molecule is also used in Scheme 15 in the <a href="https://doi.org/10.1021/ci600338x">"The Scaffold Tree"</a> paper.
+     * This test checks the edge and node count of the created GraphStream graph and that the creation goes without problems.
+     *
+     * @throws Exception if anything goes wrong
+     */
+    @Test
+    public void treeTest() throws Exception {
+        SmilesParser tmpParser = new SmilesParser(SilentChemObjectBuilder.getInstance());
+        ScaffoldGenerator tmpScaffoldGenerator = new ScaffoldGenerator();
+        IAtomContainer tmpMolecule = tmpParser.parseSmiles("CNC1CCC(C2=CC=CC=C12)C3=CC(=C(C=C3)Cl)Cl");
+        ScaffoldTree tmpScaffoldTree = tmpScaffoldGenerator.generateSchuffenhauerTree(tmpMolecule);
+        Graph tmpGraph = new SingleGraph("Sertraline-Scaffold-Tree");
+        GraphStreamUtility.generateGraphFromScaffoldNodeCollection(tmpScaffoldTree,
+                GraphStreamUtility.DEFAULT_ARE_NODES_LABELLED,
+                GraphStreamUtility.DEFAULT_CDK_DEPICTION_GENERATOR,
+                GraphStreamUtility.DEFAULT_GRAPH_STYLE_SHEET,
+                tmpGraph);
+        Assertions.assertEquals(2, tmpGraph.getEdgeCount());
+        Assertions.assertEquals(3, tmpGraph.getNodeCount());
     }
     //
     /**
