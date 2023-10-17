@@ -107,6 +107,13 @@ public class GraphStreamUtility {
     }
     //
     /**
+     * Private constructor to hide the implicit public one.
+     */
+    private GraphStreamUtility() {
+        throw new IllegalStateException("Utility class");
+    }
+    //
+    /**
      * Folder to store screenshots, temporary image files, etc.
      *
      * @return output folder
@@ -543,8 +550,11 @@ public class GraphStreamUtility {
         File tmpTargetFile = new File(aFilePath);
         try {
             if (!tmpTargetFile.exists()) {
-                tmpTargetFile.getParentFile().mkdirs();
-                tmpTargetFile.createNewFile();
+                boolean tmpWasMKDirSuccessful = tmpTargetFile.getParentFile().mkdirs();
+                boolean tmpWasFileCreationSuccessful = tmpTargetFile.createNewFile();
+                if (!tmpWasFileCreationSuccessful || !tmpWasMKDirSuccessful) {
+                    throw new IOException("File creation was unsuccessful in " + aFilePath);
+                }
             }
             if (!tmpTargetFile.canRead() || !tmpTargetFile.canWrite() || !tmpTargetFile.isFile()) {
                 throw new IllegalArgumentException("Given file path " + aFilePath +" is not a file or cannot be read from or written to.");
@@ -601,8 +611,11 @@ public class GraphStreamUtility {
         File tmpTargetFile = new File(aFilePath);
         try {
             if (!tmpTargetFile.exists()) {
-                tmpTargetFile.getParentFile().mkdirs();
-                tmpTargetFile.createNewFile();
+                boolean tmpWasMKDirSuccessful = tmpTargetFile.getParentFile().mkdirs();
+                boolean tmpWasFileCreationSuccessful = tmpTargetFile.createNewFile();
+                if (!tmpWasFileCreationSuccessful || !tmpWasMKDirSuccessful) {
+                    throw new IOException("File creation was unsuccessful in " + aFilePath);
+                }
             }
             if (!tmpTargetFile.canRead() || !tmpTargetFile.canWrite() || !tmpTargetFile.isFile()) {
                 throw new IllegalArgumentException("Given file path " + aFilePath +" is not a file or cannot be read from or written to.");
