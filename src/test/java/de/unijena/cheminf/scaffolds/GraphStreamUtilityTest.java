@@ -129,10 +129,22 @@ public class GraphStreamUtilityTest {
         tmpMoleculeList.add(tmpMolecule2);
         tmpMoleculeList.add(tmpMolecule3);
         List<ScaffoldTree> tmpScaffoldTreeList = tmpScaffoldGenerator.generateSchuffenhauerForest(tmpMoleculeList);
-        /*Display the Tree*/
-        GraphStreamUtility.displayWithGraphStream(tmpScaffoldTreeList.get(0), true);
-        GraphStreamUtility.screenshotGraphHighQuality(GraphStreamUtility.generateGraphFromScaffoldNodeCollection(tmpScaffoldTreeList.get(0)),
-                GraphStreamUtility.getGraphStreamDisplayFolder().getAbsolutePath() + File.separatorChar + "Pyrimidine_ScaffoldTree.png");
+        //shortcut would be:
+        //GraphStreamUtility.displayWithGraphStream(tmpScaffoldTreeList.get(0));
+        //alternative with more options:
+        Graph tmpGraph = new SingleGraph("Pyrimidine-Scaffold-Tree");
+        GraphStreamUtility.generateGraphFromScaffoldNodeCollection(tmpScaffoldTreeList.get(0),
+                GraphStreamUtility.DEFAULT_ARE_NODES_LABELLED,
+                GraphStreamUtility.DEFAULT_CDK_DEPICTION_GENERATOR,
+                GraphStreamUtility.DEFAULT_GRAPH_STYLE_SHEET,
+                tmpGraph);
+        System.setProperty("org.graphstream.ui", GraphStreamUtility.DEFAULT_GRAPHSTREAM_UI);
+        tmpGraph.display();
+        //screenshot the graph in both ways available
+        GraphStreamUtility.screenshotGraph(tmpGraph, GraphStreamUtility.getGraphStreamDisplayFolder().getAbsolutePath() + File.separatorChar +
+              "Pyrimidine_ScaffoldTree_low.png");
+        GraphStreamUtility.screenshotGraphHighQuality(tmpGraph, GraphStreamUtility.getGraphStreamDisplayFolder().getAbsolutePath() + File.separatorChar +
+                "Pyrimidine_ScaffoldTree.png");
         TimeUnit.SECONDS.sleep(10);
     }
     //
