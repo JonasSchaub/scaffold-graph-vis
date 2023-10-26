@@ -5,6 +5,8 @@
 [![GitHub issues](https://img.shields.io/github/issues/JonasSchaub/scaffold-graph-vis.svg)](https://GitHub.com/JonasSchaub/scaffold-graph-vis/issues/)
 [![GitHub contributors](https://img.shields.io/github/contributors/JonasSchaub/scaffold-graph-vis.svg)](https://GitHub.com/JonasSchaub/scaffold-graph-vis/graphs/contributors/)
 [![GitHub release](https://img.shields.io/github/release/JonasSchaub/scaffold-graph-vis.svg)](https://github.com/JonasSchaub/scaffold-graph-vis/releases/)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.jonasschaub/Scaffold-graph-vis/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.jonasschaub/Scaffold-graph-vis)
+
 # scaffold-graph-vis
 Basic utilities for visualising [cdk-scaffold](https://github.com/cdk/cdk-scaffold) graphs using the [GraphStream library](https://github.com/graphstream).
 
