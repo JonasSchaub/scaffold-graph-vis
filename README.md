@@ -1,5 +1,5 @@
 [![DOI](https://zenodo.org/badge/687502368.svg)](https://zenodo.org/badge/latestdoi/687502368)
-[![Javadoc](https://img.shields.io/badge/JavaDoc-Online-green)](https://jonasschaub.github.io/scaffold-graph-vis/javadoc/)
+[![Javadoc](https://img.shields.io/badge/JavaDoc-Online-green)](https://jonasschaub.github.io/scaffold-graph-vis/javadoc/latest/index.html)
 [![License: GPL v3](https://img.shields.io/badge/License-LGPL%20v2.1-blue.svg)](http://www.gnu.org/licenses/lgpl-2.1.html)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-blue.svg)](https://GitHub.com/JonasSchaub/scaffold-graph-vis/graphs/commit-activity)
 [![GitHub issues](https://img.shields.io/github/issues/JonasSchaub/scaffold-graph-vis.svg)](https://GitHub.com/JonasSchaub/scaffold-graph-vis/issues/)
