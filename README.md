@@ -5,8 +5,9 @@
 [![GitHub issues](https://img.shields.io/github/issues/JonasSchaub/scaffold-graph-vis.svg)](https://GitHub.com/JonasSchaub/scaffold-graph-vis/issues/)
 [![GitHub contributors](https://img.shields.io/github/contributors/JonasSchaub/scaffold-graph-vis.svg)](https://GitHub.com/JonasSchaub/scaffold-graph-vis/graphs/contributors/)
 [![GitHub release](https://img.shields.io/github/release/JonasSchaub/scaffold-graph-vis.svg)](https://github.com/JonasSchaub/scaffold-graph-vis/releases/)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.jonasschaub/Scaffold-graph-vis/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.jonasschaub/Scaffold-graph-vis)
-
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.jonasschaub/scaffold-graph-vis/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.jonasschaub/scaffold-graph-vis)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=JonasSchaub_scaffold-graph-vis&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=JonasSchaub_scaffold-graph-vis)
+[![build](https://github.com/JonasSchaub/scaffold-graph-vis/actions/workflows/gradle.yml/badge.svg)](https://github.com/JonasSchaub/scaffold-graph-vis/actions/workflows/gradle.yml)
 # scaffold-graph-vis
 Basic utilities for visualising [cdk-scaffold](https://github.com/cdk/cdk-scaffold) graphs using the [GraphStream library](https://github.com/graphstream).
 
