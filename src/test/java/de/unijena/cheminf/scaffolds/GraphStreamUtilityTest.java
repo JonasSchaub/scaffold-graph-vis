@@ -51,7 +51,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Test class showcasing the capabilities of the GraphStream scaffold graph visualisation functionality.
  * Please note that most of this is code for example usage of the functionality, not actual test code.
- * Also, most tests are disabled by default to be able to have them run in on machines without a graphical display.
+ * Also, most tests are disabled by default to be able to have them run on machines without a graphical display.
  *
  *  @author Julian Zander, Jonas Schaub (zanderjulian@gmx.de, jonas.schaub@uni-jena.de)
  *  @version 1.0.0.0

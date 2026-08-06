@@ -1,4 +1,4 @@
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10043528.svg)](https://doi.org/10.5281/zenodo.10043528)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10043527.svg)](https://doi.org/10.5281/zenodo.10043527)
 [![Javadoc](https://img.shields.io/badge/JavaDoc-Online-green)](https://jonasschaub.github.io/scaffold-graph-vis/javadoc/latest/index.html)
 [![License: GPL v3](https://img.shields.io/badge/License-LGPL%20v2.1-blue.svg)](http://www.gnu.org/licenses/lgpl-2.1.html)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-blue.svg)](https://GitHub.com/JonasSchaub/scaffold-graph-vis/graphs/commit-activity)
@@ -55,7 +55,7 @@ The test class
 **Needs to be pre-installed:**
 * Java Development Kit (JDK) version 17
     * [Adoptium OpenJDK](https://adoptium.net) (as one possible source of the JDK)
-* Gradle version 9.2
+* Gradle version 9.6.1
     * [Gradle Build Tool](https://gradle.org)
 
 **Managed by Gradle:**
