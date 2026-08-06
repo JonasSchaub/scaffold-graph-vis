@@ -62,7 +62,7 @@ The test class
 * JUnit Jupiter version 6.0.1
     * [JUnit ](https://junit.org/junit5/)
     * License: Eclipse Public License - v 2.0
-* Spotless version 8.1
+* Spotless version 8.9
     * [Spotless GitHub repository](https://github.com/diffplug/spotless)
     * License: Apache-2.0 license
 * Javadoc-publisher version 3.0.2
