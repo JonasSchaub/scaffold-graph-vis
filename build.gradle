@@ -25,16 +25,18 @@ plugins {
     id 'jacoco'
     id 'java-library'
     id 'java'
-    id("com.diffplug.spotless") version "6.19.0"
-    id 'org.gradle.maven-publish'
-    id 'signing'
-    id("org.sonarqube") version "4.3.1.3277"
+    id "com.diffplug.spotless" version "8.1.0"
+    id "com.vanniktech.maven.publish" version "0.35.0"
+    id "org.sonarqube" version "7.1.0.6387"
 }
 
 group = 'io.github.jonasschaub'
-archivesBaseName = 'scaffold-graph-vis'
 //see also version for publishing below! And do not forget to update CITATION.cff version as well!!!
 version = '1.0.0.0'
+
+base {
+    archivesName = 'scaffold-graph-vis'
+}
 
 //sourceCompatibility = 1.17
 
@@ -55,23 +57,21 @@ javadoc {
 
 repositories {
     mavenCentral()
-    maven {
-        url 'https://s01.oss.sonatype.org/content/repositories/snapshots'
-    }
 }
 
+def cdkVersion = '2.9'
 def graphStreamVersion = '2.0'
-
 dependencies {
-    implementation group: 'org.jetbrains', name: 'annotations', version: '23.0.0'
-    implementation group: 'org.graphstream', name: 'gs-core', version: graphStreamVersion
-    implementation group: 'org.graphstream', name: 'gs-ui-swing', version: graphStreamVersion
-    implementation group: 'org.graphstream', name: 'gs-ui-javafx', version: graphStreamVersion
-    implementation group: 'org.graphstream', name: 'gs-algo', version: graphStreamVersion
-    implementation group: 'org.openscience.cdk', name: 'cdk-bundle', version: '2.9'
-    implementation group: 'org.openscience.cdk', name: 'cdk-scaffold', version: '2.8'
-    testImplementation(platform('org.junit:junit-bom:5.9.1'))
+    implementation "org.jetbrains:annotations:26.1.0"
+    implementation "org.graphstream:gs-core:${graphStreamVersion}"
+    implementation "org.graphstream:gs-ui-swing:${graphStreamVersion}"
+    implementation "org.graphstream:gs-ui-javafx:${graphStreamVersion}"
+    implementation "org.graphstream:gs-algo:${graphStreamVersion}"
+    implementation "org.openscience.cdk:cdk-bundle:${cdkVersion}"
+    implementation "org.openscience.cdk:cdk-scaffold:${cdkVersion}"
+    testImplementation(platform('org.junit:junit-bom:6.0.1'))
     testImplementation('org.junit.jupiter:junit-jupiter')
+    testRuntimeOnly('org.junit.platform:junit-platform-launcher')
 }
 
 tasks.withType(Test).configureEach {
@@ -101,7 +101,7 @@ spotless {
         cleanthat()
         importOrder('de', 'org', 'com', 'java', 'javax')
         removeUnusedImports()
-        indentWithSpaces(4) // doesn't really seem to work...
+        leadingTabsToSpaces(4)
         trimTrailingWhitespace()
         endWithNewline()
         licenseHeaderFile('License-header/License-header.txt')
@@ -128,113 +128,56 @@ sonar {
     }
 }
 
-artifacts {
-    archives javadocJar, sourcesJar
-}
+mavenPublishing {
+    publishToMavenCentral(false, false)
 
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
+    signAllPublications()
 
-            groupId = 'io.github.jonasschaub'
-            artifactId = 'scaffold-graph-vis'
-            version = '1.0.0.0'
+    coordinates("io.github.jonasschaub", "scaffold-graph-vis", "1.0.0.0")
 
-            from components.java
+    pom {
+        name = 'scaffold-graph-vis'
+        description = 'Basic utilities for visualising cdk-scaffold graphs using GraphStream'
+        url = 'https://github.com/JonasSchaub/scaffold-graph-vis'
+        inceptionYear = '2023'
 
-            versionMapping {
-                usage('java-api') {
-                    fromResolutionOf('runtimeClasspath')
-                }
-                usage('java-runtime') {
-                    fromResolutionResult()
-                }
-            }
-
-            pom {
-
-                name = 'scaffold-graph-vis'
-                description = 'Basic utilities for visualising cdk-scaffold graphs using GraphStream'
-                url = 'https://github.com/JonasSchaub/scaffold-graph-vis'
-
-                //this way, properties can be added:
-                //properties = [
-                        //myProp: "value",
-                        //"prop.with.dots": "anotherValue"
-                //]
-
-                licenses {
-                    license {
-                        name = 'GNU Lesser General Public License v2.1'
-                        url = 'https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html'
-                    }
-                }
-
-                developers {
-                    developer {
-                        id = 'Julian-Z98'
-                        name = 'Julian Zander'
-                        email = 'zanderjulian@gmx'
-                        url = 'https://github.com/Julian-Z98'
-                    }
-                    developer {
-                        id = 'JonasSchaub'
-                        name = 'Jonas Schaub'
-                        email = 'jonas.schaub@uni-jena.de'
-                        url = 'https://github.com/JonasSchaub'
-                    }
-                    developer {
-                        name = 'Achim Zielesny'
-                        email = 'achim.zielesny@w-hs.de'
-                        url = 'https://www.w-hs.de/service/informationen-zur-person/person/zielesny'
-                    }
-					developer {
-                        name = 'Christoph Steinbeck'
-                        email = 'christoph.steinbeck@uni-jena.de'
-                        url = 'https://cheminf.uni-jena.de/members/steinbeck'
-                    }
-                }
-
-                scm {
-                    connection = 'scm:git:git://github.com/JonasSchaub/scaffold-graph-vis.git'
-                    developerConnection = 'scm:git:ssh://github.com/JonasSchaub/scaffold-graph-vis.git'
-                    url = 'https://github.com/JonasSchaub/scaffold-graph-vis/'
-                }
+        licenses {
+            license {
+                name = 'GNU Lesser General Public License v2.1'
+                url = 'https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html'
+                distribution = 'https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html'
             }
         }
-    }
-    repositories {
-        maven {
-            //these two lines did not work because dir() apparently asks for a local path
-            //def releasesRepoUrl = layout.buildDirectory.dir('https://s01.oss.sonatype.org/content/repositories/releases/')
-            //def snapshotsRepoUrl = layout.buildDirectory.dir('https://s01.oss.sonatype.org/content/repositories/snapshots/')
 
-            //TODO: is this actually the way to fully automatically do it?
-            //def releasesRepoUrl = 'https://s01.oss.sonatype.org/content/repositories/releases/'
-            //def snapshotsRepoUrl = 'https://s01.oss.sonatype.org/content/repositories/snapshots/'
-            //url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
-
-            //after publishing, go to https://s01.oss.sonatype.org, log in, close the staged repo, and release it if everything worked out
-            url = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
-            credentials {
-                //uses keys and passwords declared in userhome/.gradle/gradle.properties
-                //username = property("ossrhUsername") as String
-                //password = property("ossrhPassword") as String
-                //uses environment variables declared in yml file which passes GitHub secrets to it
-                username = System.getenv("MAVEN_USERNAME")
-                password = System.getenv("MAVEN_PASSWORD")
+        developers {
+            developer {
+                id = 'Julian-Z98'
+                name = 'Julian Zander'
+                email = 'zanderjulian@gmx'
+                url = 'https://github.com/Julian-Z98'
+            }
+            developer {
+                id = 'JonasSchaub'
+                name = 'Jonas Schaub'
+                email = 'jonas.schaub@uni-jena.de'
+                url = 'https://github.com/JonasSchaub'
+            }
+            developer {
+                name = 'Achim Zielesny'
+                email = 'achim.zielesny@w-hs.de'
+                url = 'https://www.w-hs.de/service/informationen-zur-person/person/zielesny'
+            }
+            developer {
+                name = 'Christoph Steinbeck'
+                email = 'christoph.steinbeck@uni-jena.de'
+                url = 'https://cheminf.uni-jena.de/members/steinbeck'
             }
         }
+
+        scm {
+            connection = 'scm:git:git://github.com/JonasSchaub/scaffold-graph-vis.git'
+            developerConnection = 'scm:git:ssh://github.com/JonasSchaub/scaffold-graph-vis.git'
+            url = 'https://github.com/JonasSchaub/scaffold-graph-vis/'
+        }
     }
-}
-
-signing {
-    //uses keys and passwords declared in userhome/.gradle/gradle.properties, works locally
-    //sign publishing.publications.mavenJava
-
-    //uses environment variables declared in yml file which passes GitHub secrets to it
-    def signingKey = System.getenv("signingKey")
-    def signingPassword = System.getenv("signingPassword")
-    useInMemoryPgpKeys(signingKey, signingPassword)
-    sign publishing.publications.mavenJava
 }
