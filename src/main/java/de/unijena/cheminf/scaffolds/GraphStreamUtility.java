@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Julian Zander <zanderjulian@gmx.de>
+ * Copyright (c) 2026 Julian Zander <zanderjulian@gmx.de>
  *                    Jonas Schaub <jonas.schaub@uni-jena.de>
  *                    Achim Zielesny <achim.zielesny@w-hs.de>
  *                    Christoph Steinbeck <christoph.steinbeck@uni-jena.de>
@@ -549,10 +549,15 @@ public class GraphStreamUtility {
         }
         File tmpTargetFile = new File(aFilePath);
         try {
-            if (!tmpTargetFile.exists()) {
+            if (!tmpTargetFile.getParentFile().exists()) {
                 boolean tmpWasMKDirSuccessful = tmpTargetFile.getParentFile().mkdirs();
+                if (!tmpWasMKDirSuccessful) {
+                    throw new IOException("File creation was unsuccessful in " + aFilePath);
+                }
+            }
+            if (!tmpTargetFile.exists()) {
                 boolean tmpWasFileCreationSuccessful = tmpTargetFile.createNewFile();
-                if (!tmpWasFileCreationSuccessful || !tmpWasMKDirSuccessful) {
+                if (!tmpWasFileCreationSuccessful) {
                     throw new IOException("File creation was unsuccessful in " + aFilePath);
                 }
             }
@@ -610,10 +615,15 @@ public class GraphStreamUtility {
         }
         File tmpTargetFile = new File(aFilePath);
         try {
-            if (!tmpTargetFile.exists()) {
+            if (!tmpTargetFile.getParentFile().exists()) {
                 boolean tmpWasMKDirSuccessful = tmpTargetFile.getParentFile().mkdirs();
+                if (!tmpWasMKDirSuccessful) {
+                    throw new IOException("File creation was unsuccessful in " + aFilePath);
+                }
+            }
+            if (!tmpTargetFile.exists()) {
                 boolean tmpWasFileCreationSuccessful = tmpTargetFile.createNewFile();
-                if (!tmpWasFileCreationSuccessful || !tmpWasMKDirSuccessful) {
+                if (!tmpWasFileCreationSuccessful) {
                     throw new IOException("File creation was unsuccessful in " + aFilePath);
                 }
             }

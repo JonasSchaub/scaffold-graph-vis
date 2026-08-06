@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 title: scaffold-graph-vis
-version: 1.0.0.0
+version: 1.1.0
 message: "If you use this software, please cite it as below."
 type: software
 authors:
@@ -19,7 +19,7 @@ authors:
 url: "https://github.com/JonasSchaub/scaffold-graph-vis"
 license: LGPL-2.1
 doi: "10.5281/zenodo.10043527"
-date-released: 2023-10-26
+date-released: 2026-08-06
 references:
   - authors:
       - family-names: "Schaub"

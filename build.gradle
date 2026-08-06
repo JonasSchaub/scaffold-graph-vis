@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Julian Zander <zanderjulian@gmx.de>
+ * Copyright (c) 2026 Julian Zander <zanderjulian@gmx.de>
  *                    Jonas Schaub <jonas.schaub@uni-jena.de>
  *                    Achim Zielesny <achim.zielesny@w-hs.de>
  *                    Christoph Steinbeck <christoph.steinbeck@uni-jena.de>
@@ -32,7 +32,7 @@ plugins {
 
 group = 'io.github.jonasschaub'
 //see also version for publishing below! And do not forget to update CITATION.cff version as well!!!
-version = '1.0.0.0'
+version = '1.1.0.0'
 
 base {
     archivesName = 'scaffold-graph-vis'
@@ -42,9 +42,6 @@ base {
 
 //Creates javadoc and sources jars
 java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
-    }
     withJavadocJar()
     withSourcesJar()
 }
@@ -59,7 +56,6 @@ repositories {
     mavenCentral()
 }
 
-def cdkVersion = '2.9'
 def graphStreamVersion = '2.0'
 dependencies {
     implementation "org.jetbrains:annotations:26.1.0"
@@ -67,8 +63,8 @@ dependencies {
     implementation "org.graphstream:gs-ui-swing:${graphStreamVersion}"
     implementation "org.graphstream:gs-ui-javafx:${graphStreamVersion}"
     implementation "org.graphstream:gs-algo:${graphStreamVersion}"
-    implementation "org.openscience.cdk:cdk-bundle:${cdkVersion}"
-    implementation "org.openscience.cdk:cdk-scaffold:${cdkVersion}"
+    implementation "org.openscience.cdk:cdk-bundle:2.12"
+    implementation "org.openscience.cdk:cdk-scaffold:2.9"
     testImplementation(platform('org.junit:junit-bom:6.0.1'))
     testImplementation('org.junit.jupiter:junit-jupiter')
     testRuntimeOnly('org.junit.platform:junit-platform-launcher')
@@ -124,7 +120,6 @@ sonar {
     properties {
         property("sonar.projectKey", "JonasSchaub_scaffold-graph-vis")
         property("sonar.organization", "jonasschaub")
-        property("sonar.host.url", "https://sonarcloud.io")
     }
 }
 
@@ -133,7 +128,7 @@ mavenPublishing {
 
     signAllPublications()
 
-    coordinates("io.github.jonasschaub", "scaffold-graph-vis", "1.0.0.0")
+    coordinates("io.github.jonasschaub", "scaffold-graph-vis", "1.1.0")
 
     pom {
         name = 'scaffold-graph-vis'
