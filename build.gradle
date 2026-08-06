@@ -63,7 +63,7 @@ dependencies {
     implementation "org.graphstream:gs-ui-swing:${graphStreamVersion}"
     implementation "org.graphstream:gs-ui-javafx:${graphStreamVersion}"
     implementation "org.graphstream:gs-algo:${graphStreamVersion}"
-    implementation "org.openscience.cdk:cdk-bundle:2.12"
+    implementation "org.openscience.cdk:cdk-bundle:2.9"
     implementation "org.openscience.cdk:cdk-scaffold:2.9"
     testImplementation(platform('org.junit:junit-bom:6.0.1'))
     testImplementation('org.junit.jupiter:junit-jupiter')
