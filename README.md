@@ -1,12 +1,12 @@
-[![DOI](https://zenodo.org/badge/687502368.svg)](https://zenodo.org/badge/latestdoi/687502368)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10043527.svg)](https://doi.org/10.5281/zenodo.10043527)
 [![Javadoc](https://img.shields.io/badge/JavaDoc-Online-green)](https://jonasschaub.github.io/scaffold-graph-vis/javadoc/latest/index.html)
 [![License: GPL v3](https://img.shields.io/badge/License-LGPL%20v2.1-blue.svg)](http://www.gnu.org/licenses/lgpl-2.1.html)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-blue.svg)](https://GitHub.com/JonasSchaub/scaffold-graph-vis/graphs/commit-activity)
 [![GitHub issues](https://img.shields.io/github/issues/JonasSchaub/scaffold-graph-vis.svg)](https://GitHub.com/JonasSchaub/scaffold-graph-vis/issues/)
 [![GitHub contributors](https://img.shields.io/github/contributors/JonasSchaub/scaffold-graph-vis.svg)](https://GitHub.com/JonasSchaub/scaffold-graph-vis/graphs/contributors/)
 [![GitHub release](https://img.shields.io/github/release/JonasSchaub/scaffold-graph-vis.svg)](https://github.com/JonasSchaub/scaffold-graph-vis/releases/)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.jonasschaub/scaffold-graph-vis/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.jonasschaub/scaffold-graph-vis)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=JonasSchaub_scaffold-graph-vis&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=JonasSchaub_scaffold-graph-vis)
+[![Maven Central Version](https://img.shields.io/maven-central/v/io.github.jonasschaub/scaffold-graph-vis)](https://central.sonatype.com/artifact/io.github.jonasschaub/scaffold-graph-vis)
+[![Quality gate status](https://sonarcloud.io/api/project_badges/measure?project=JonasSchaub_scaffold-graph-vis&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=JonasSchaub_scaffold-graph-vis)
 [![build](https://github.com/JonasSchaub/scaffold-graph-vis/actions/workflows/gradle.yml/badge.svg)](https://github.com/JonasSchaub/scaffold-graph-vis/actions/workflows/gradle.yml)
 # scaffold-graph-vis
 Basic utilities for visualising [cdk-scaffold](https://github.com/cdk/cdk-scaffold) graphs using the [GraphStream library](https://github.com/graphstream).
@@ -28,9 +28,9 @@ See the <a href="https://github.com/JonasSchaub/scaffold-graph-vis/wiki">wiki</a
 The JavaDoc of this library can be found <a href="https://jonasschaub.github.io/scaffold-graph-vis/javadoc/latest">here</a>.
 
 ## Installation
-Scaffold-graph-vis is hosted as a package/artifact on the sonatype maven central repository. See the
-<a href="https://central.sonatype.com/artifact/io.github.jonasschaub/scaffold-graph-vis/">artifact page</a> for installation
-guidelines using build tools like maven or gradle.
+Scaffold-graph-vis is hosted as a package/artifact on the Maven Central repository. See the
+<a href="https://central.sonatype.com/artifact/io.github.jonasschaub/scaffold-graph-vis">artifact page</a> for installation
+guidelines using build tools like Maven or Gradle.
 <br>
 To install Scaffold-graph-vis via its JAR archive, you can get it from the
 <a href="https://github.com/JonasSchaub/scaffold-graph-vis/releases">releases</a>. Note that other dependencies
@@ -55,16 +55,16 @@ The test class
 **Needs to be pre-installed:**
 * Java Development Kit (JDK) version 17
     * [Adoptium OpenJDK](https://adoptium.net) (as one possible source of the JDK)
-* Gradle version 8.2
+* Gradle version 9.6.1
     * [Gradle Build Tool](https://gradle.org)
 
 **Managed by Gradle:**
-* JUnit Jupiter version 5.9.1
+* JUnit Jupiter version 6.0.1
     * [JUnit ](https://junit.org/junit5/)
     * License: Eclipse Public License - v 2.0
-* Spotless version 6.19
+* Spotless version 8.9
     * [Spotless GitHub repository](https://github.com/diffplug/spotless)
     * License: Apache-2.0 license
-* Javadoc-publisher version 2.4
+* Javadoc-publisher version 3.0.2
     * [Javadoc-publisher GitHub repository](https://github.com/MathieuSoysal/Javadoc-publisher.yml)
     * License: Apache-2.0 license

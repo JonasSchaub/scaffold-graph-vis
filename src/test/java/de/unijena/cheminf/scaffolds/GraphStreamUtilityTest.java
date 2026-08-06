@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Julian Zander <zanderjulian@gmx.de>
+ * Copyright (c) 2026 Julian Zander <zanderjulian@gmx.de>
  *                    Jonas Schaub <jonas.schaub@uni-jena.de>
  *                    Achim Zielesny <achim.zielesny@w-hs.de>
  *                    Christoph Steinbeck <christoph.steinbeck@uni-jena.de>
@@ -51,11 +51,12 @@ import java.util.concurrent.TimeUnit;
 /**
  * Test class showcasing the capabilities of the GraphStream scaffold graph visualisation functionality.
  * Please note that most of this is code for example usage of the functionality, not actual test code.
+ * Also, most tests are disabled by default to be able to have them run on machines without a graphical display.
  *
  *  @author Julian Zander, Jonas Schaub (zanderjulian@gmx.de, jonas.schaub@uni-jena.de)
  *  @version 1.0.0.0
  */
-public class GraphStreamUtilityTest {
+class GraphStreamUtilityTest {
     /**
      * Imports Sertraline (PubChem CID 68617) from a SMILES string.
      * Generates the Schuffenhauer tree of this molecule and displays it with GraphStream.
@@ -65,7 +66,7 @@ public class GraphStreamUtilityTest {
      */
     @Disabled
     @Test
-    public void graphStreamTreeTest() throws Exception {
+    void graphStreamTreeTest() throws Exception {
         SmilesParser tmpParser = new SmilesParser(SilentChemObjectBuilder.getInstance());
         ScaffoldGenerator tmpScaffoldGenerator = new ScaffoldGenerator();
         IAtomContainer tmpMolecule = tmpParser.parseSmiles("CNC1CCC(C2=CC=CC=C12)C3=CC(=C(C=C3)Cl)Cl");
@@ -97,7 +98,7 @@ public class GraphStreamUtilityTest {
      */
     @Disabled
     @Test
-    public void graphStreamNetworkTest() throws Exception {
+    void graphStreamNetworkTest() throws Exception {
         SmilesParser tmpParser = new SmilesParser(SilentChemObjectBuilder.getInstance());
         ScaffoldGenerator tmpScaffoldGenerator = new ScaffoldGenerator();
         IAtomContainer tmpMolecule = tmpParser.parseSmiles("CNC1CCC(C2=CC=CC=C12)C3=CC(=C(C=C3)Cl)Cl");
@@ -116,7 +117,7 @@ public class GraphStreamUtilityTest {
      */
     @Disabled
     @Test
-    public void graphStreamTreeMergeTest() throws Exception {
+    void graphStreamTreeMergeTest() throws Exception {
         SmilesParser tmpParser = new SmilesParser(SilentChemObjectBuilder.getInstance());
         ScaffoldGenerator tmpScaffoldGenerator = new ScaffoldGenerator();
         IAtomContainer tmpMolecule = tmpParser.parseSmiles("C1CCC2C(C1)C3=CN=CN=C3S2"); //PubChem CID 141755869
@@ -156,7 +157,7 @@ public class GraphStreamUtilityTest {
      */
     @Disabled
     @Test
-    public void graphStreamNetworkMergeTest() throws Exception {
+    void graphStreamNetworkMergeTest() throws Exception {
         SmilesParser tmpParser = new SmilesParser(SilentChemObjectBuilder.getInstance());
         ScaffoldGenerator tmpScaffoldGenerator = new ScaffoldGenerator();
         IAtomContainer tmpMolecule = tmpParser.parseSmiles("ClC2NC1SCNN1N2"); //fantasy molecule for testing
@@ -176,7 +177,7 @@ public class GraphStreamUtilityTest {
      */
     @Disabled
     @Test
-    public void graphStreamTreeTestFlucloxacillin() throws Exception {
+    void graphStreamTreeTestFlucloxacillin() throws Exception {
         String tmpFileName = "Test3" ;
         //Load molecule from molfile
         IAtomContainer tmpMolecule = this.loadMolFile(tmpFileName);
@@ -216,7 +217,7 @@ public class GraphStreamUtilityTest {
      */
     @Disabled
     @Test
-    public void graphStreamNetworkTestFlucloxacillin() throws Exception {
+    void graphStreamNetworkTestFlucloxacillin() throws Exception {
         String tmpFileName = "Test3" ;
         //Load molecule from molfile
         IAtomContainer tmpMolecule = this.loadMolFile(tmpFileName);
@@ -257,7 +258,7 @@ public class GraphStreamUtilityTest {
      */
     @Disabled
     @Test
-    public void scaffoldNetworkArticleFigure1ANetworkTest() throws Exception {
+    void scaffoldNetworkArticleFigure1ANetworkTest() throws Exception {
         SmilesParser tmpParser = new SmilesParser(SilentChemObjectBuilder.getInstance());
         IAtomContainer tmpOndasetron = tmpParser.parseSmiles("CC1=NC=CN1CC2CCC3=C(C2=O)C4=CC=CC=C4N3C");//Ondasetron
         ScaffoldGenerator tmpScaffoldGenerator = new ScaffoldGenerator();
@@ -276,7 +277,7 @@ public class GraphStreamUtilityTest {
      */
     @Disabled
     @Test
-    public void scaffoldNetworkArticleFigure1BNetworkTest() throws Exception {
+    void scaffoldNetworkArticleFigure1BNetworkTest() throws Exception {
         SmilesParser tmpParser = new SmilesParser(SilentChemObjectBuilder.getInstance());
         IAtomContainer tmpAlosetron = tmpParser.parseSmiles("CC1=C(N=CN1)CN2CCC3=C(C2=O)C4=CC=CC=C4N3C");//Alosetron
         ScaffoldGenerator tmpScaffoldGenerator = new ScaffoldGenerator();
@@ -295,7 +296,7 @@ public class GraphStreamUtilityTest {
      */
     @Disabled
     @Test
-    public void scaffoldNetworkArticleFigure1CNetworkTest() throws Exception {
+    void scaffoldNetworkArticleFigure1CNetworkTest() throws Exception {
         SmilesParser tmpParser = new SmilesParser(SilentChemObjectBuilder.getInstance());
         IAtomContainer tmpRamosetron = tmpParser.parseSmiles("CN1C=C(C2=CC=CC=C21)C(=O)C3CCC4=C(C3)NC=N4");//Ramosetron
         ScaffoldGenerator tmpScaffoldGenerator = new ScaffoldGenerator();
@@ -314,7 +315,7 @@ public class GraphStreamUtilityTest {
      */
     @Disabled
     @Test
-    public void scaffoldNetworkArticleFigure1NetworkTest() throws Exception {
+    void scaffoldNetworkArticleFigure1NetworkTest() throws Exception {
         SmilesParser tmpParser  = new SmilesParser(SilentChemObjectBuilder.getInstance());
         IAtomContainer tmpOndasetron = tmpParser.parseSmiles("CC1=NC=CN1CC2CCC3=C(C2=O)C4=CC=CC=C4N3C");//Ondasetron
         IAtomContainer tmpAlosetron = tmpParser.parseSmiles("CC1=C(N=CN1)CN2CCC3=C(C2=O)C4=CC=CC=C4N3C");//Alosetron
@@ -336,7 +337,7 @@ public class GraphStreamUtilityTest {
      */
     @Disabled
     @Test
-    public void mergeTreeDisplayTest() throws Exception {
+    void mergeTreeDisplayTest() throws Exception {
         SmilesParser tmpParser = new SmilesParser(SilentChemObjectBuilder.getInstance());
         IAtomContainer tmpMolecule1 = tmpParser.parseSmiles("C2NC1SCNN1N2");
         IAtomContainer tmpMolecule2 = tmpParser.parseSmiles("c4ccc(C3NC2SC(c1ccccc1)NN2N3)cc4");
@@ -370,7 +371,7 @@ public class GraphStreamUtilityTest {
      */
     @Disabled
     @Test
-    public void mergeNetworkDisplayTest() throws Exception {
+    void mergeNetworkDisplayTest() throws Exception {
         SmilesParser tmpParser = new SmilesParser(SilentChemObjectBuilder.getInstance());
         IAtomContainer tmpMolecule1 = tmpParser.parseSmiles("C2NC1SCNN1N2");
         IAtomContainer tmpMolecule2 = tmpParser.parseSmiles("c4ccc(C3NC2SC(c1ccccc1)NN2N3)cc4");
@@ -398,7 +399,7 @@ public class GraphStreamUtilityTest {
      */
     @Disabled
     @Test
-    public void mergeMoleculesToForestTest() throws Exception {
+    void mergeMoleculesToForestTest() throws Exception {
         ScaffoldGenerator tmpScaffoldGenerator = new ScaffoldGenerator();
         SmilesParser tmpParser = new SmilesParser(SilentChemObjectBuilder.getInstance());
         IAtomContainer tmpMolecule1 = tmpParser.parseSmiles("c1ncc2c(n1)SC3CCCCC23"); //CID: 141755869
@@ -441,7 +442,7 @@ public class GraphStreamUtilityTest {
      * @throws Exception if anything goes wrong
      */
     @Test
-    public void treeTest() throws Exception {
+    void treeTest() throws Exception {
         SmilesParser tmpParser = new SmilesParser(SilentChemObjectBuilder.getInstance());
         ScaffoldGenerator tmpScaffoldGenerator = new ScaffoldGenerator();
         IAtomContainer tmpMolecule = tmpParser.parseSmiles("CNC1CCC(C2=CC=CC=C12)C3=CC(=C(C=C3)Cl)Cl");
@@ -471,12 +472,12 @@ public class GraphStreamUtilityTest {
         IChemFormat tmpFormat = tmpFactory.guessFormat(tmpInputStream);
         IAtomContainer tmpMolecule = SilentChemObjectBuilder.getInstance().newAtomContainer();
         /*Load V2000 mol file*/
-        if(tmpFormat.getReaderClassName().contains("V2000")) {
+        if (tmpFormat.getReaderClassName().contains("V2000")) {
             MDLV2000Reader tmpReader = new MDLV2000Reader(tmpInputStream);
             IChemObjectBuilder tmpBuilder = SilentChemObjectBuilder.getInstance();
             tmpMolecule = tmpReader.read(tmpBuilder.newAtomContainer());
-            /*Load V3000 mol file*/
-        } else if(tmpFormat.getReaderClassName().contains("V3000")) {
+        /*Load V3000 mol file*/
+        } else if (tmpFormat.getReaderClassName().contains("V3000")) {
             MDLV3000Reader tmpReader = new MDLV3000Reader(tmpInputStream);
             IChemObjectBuilder tmpBuilder = SilentChemObjectBuilder.getInstance();
             tmpMolecule = tmpReader.read(tmpBuilder.newAtomContainer());
