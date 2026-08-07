@@ -54,6 +54,11 @@ javadoc {
     failOnError = false
 }
 
+tasks.withType(org.gradle.api.publish.tasks.GenerateModuleMetadata).configureEach {
+    def javadocJarProvider = tasks.named("javadocJar")
+    dependsOn(javadocJarProvider)
+}
+
 repositories {
     mavenCentral()
 }
