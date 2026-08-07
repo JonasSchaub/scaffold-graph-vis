@@ -59,12 +59,30 @@ The test class
     * [Gradle Build Tool](https://gradle.org)
 
 **Managed by Gradle:**
+* CDK Scaffold version 2.10
+  * [CDK Scaffold on GitHub](https://github.com/cdk/cdk-scaffold)
+  * License: GNU Lesser General Public License v2.1
+* GraphStream version 2.0
+  * [GraphStream on GitHub](https://github.com/graphstream)
+  * License: CeCILL-C FREE SOFTWARE LICENSE AGREEMENT and GNU Lesser General Public License v3.0
+* CDK version 2.10
+  * [CDK GitHub](https://github.com/cdk/cdk)
+  * License: GNU Lesser General Public License v2.1
+* JetBrains Annotations version 26.1.0
+    * [JetBrains Annotations GitHub](https://github.com/JetBrains/java-annotations)
+    * License: Apache-2.0 license
 * JUnit Jupiter version 6.0.1
     * [JUnit ](https://junit.org/junit5/)
     * License: Eclipse Public License - v 2.0
 * Spotless version 8.9
     * [Spotless GitHub repository](https://github.com/diffplug/spotless)
     * License: Apache-2.0 license
+* Maven Publish Plugin version 0.37.0
+    * [Gradle Maven Publish Plugin GitHub repository](https://github.com/vanniktech/gradle-maven-publish-plugin)
+    * License: Apache-2.0 license
+* SonarQube Plugin version 7.1.0.6387
+    * [SonarQube Scanner for Gradle](https://plugins.gradle.org/plugin/org.sonarqube)
+    * License: GNU Lesser General Public License v3.0
 * Javadoc-publisher version 3.0.2
     * [Javadoc-publisher GitHub repository](https://github.com/MathieuSoysal/Javadoc-publisher.yml)
     * License: Apache-2.0 license
