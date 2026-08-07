@@ -38,25 +38,12 @@ base {
     archivesName = 'scaffold-graph-vis'
 }
 
-//sourceCompatibility = 1.17
-
-//Creates javadoc and sources jars
-java {
-    withJavadocJar()
-    withSourcesJar()
-}
-
 javadoc {
     if (JavaVersion.current().isJava9Compatible()) {
         options.addBooleanOption('html5', true)
     }
     options.addStringOption('Xdoclint:none', '-quiet')
     failOnError = false
-}
-
-tasks.withType(org.gradle.api.publish.tasks.GenerateModuleMetadata).configureEach {
-    def javadocJarProvider = tasks.named("javadocJar")
-    dependsOn(javadocJarProvider)
 }
 
 repositories {
