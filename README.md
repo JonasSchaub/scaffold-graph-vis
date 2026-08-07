@@ -60,14 +60,14 @@ The test class
 
 **Managed by Gradle:**
 * CDK Scaffold version 2.10
-  * [CDK Scaffold on GitHub](https://github.com/cdk/cdk-scaffold)
-  * License: GNU Lesser General Public License v2.1
+    * [CDK Scaffold on GitHub](https://github.com/cdk/cdk-scaffold)
+    * License: GNU Lesser General Public License v2.1
 * GraphStream version 2.0
-  * [GraphStream on GitHub](https://github.com/graphstream)
-  * License: CeCILL-C FREE SOFTWARE LICENSE AGREEMENT and GNU Lesser General Public License v3.0
+    * [GraphStream on GitHub](https://github.com/graphstream)
+    * License: CeCILL-C FREE SOFTWARE LICENSE AGREEMENT and GNU Lesser General Public License v3.0
 * CDK version 2.10
-  * [CDK GitHub](https://github.com/cdk/cdk)
-  * License: GNU Lesser General Public License v2.1
+    * [CDK GitHub](https://github.com/cdk/cdk)
+    * License: GNU Lesser General Public License v2.1
 * JetBrains Annotations version 26.1.0
     * [JetBrains Annotations GitHub](https://github.com/JetBrains/java-annotations)
     * License: Apache-2.0 license
