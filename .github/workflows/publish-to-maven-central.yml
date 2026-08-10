@@ -9,10 +9,9 @@
 
 #taken from: https://docs.github.com/en/actions/publishing-packages/publishing-java-packages-with-gradle
 # and extended using https://selectfrom.dev/using-github-actions-to-automatically-publish-gradle-build-artifacts-d71c915cfa4
+#Update 2026: Nnw based on https://github.com/vanniktech/gradle-maven-publish-plugin
 name: Publish package to the Maven Central Repository
 on:
-  #push:
-    #branches: [ "main" ]
   release:
     types: [published]
 jobs:
@@ -30,15 +29,7 @@ jobs:
         run: chmod +x ./gradlew
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@f9c9c575b8b21b6485636a91ffecd10e558c62f6
-      #- name: Publish package
-        #uses: gradle/gradle-build-action@749f47bda3e44aa060e82d7b3ef7e40d953bd629 #from the tutorial
-        ##uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1 #this is the action used in the other yml file, the Gradle build
-        #with:
-          #arguments: publish
-        #env:
-          #MAVEN_USERNAME: ${{ secrets.OSSRHUSERNAME }}
-          #MAVEN_PASSWORD: ${{ secrets.OSSRHPASSWORD }}
-      - name: Publish with Gradle #from the second tutorial
+      - name: Publish with Gradle
         env:
           ORG_GRADLE_PROJECT_mavenCentralPassword: ${{secrets.OSSRHPASSWORD}}
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{secrets.OSSRHUSERNAME}}
