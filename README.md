@@ -21,7 +21,7 @@ and are described in the accompanying scientific publication
 Please note that this is a very basic functionality primarily meant for visual inspection and debugging. GraphStream 
 might also throw errors in some cases where the problem lies with the library, not this functionality here.
 
-## Example initialization and usage of ART2a-Clustering-for-Java
+## Example initialization and usage of Scaffold-Graph-Vis
 See the <a href="https://github.com/JonasSchaub/scaffold-graph-vis/wiki">wiki</a> of this repository.
 
 ## JavaDoc

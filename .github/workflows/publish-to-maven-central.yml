@@ -9,7 +9,7 @@
 
 #taken from: https://docs.github.com/en/actions/publishing-packages/publishing-java-packages-with-gradle
 # and extended using https://selectfrom.dev/using-github-actions-to-automatically-publish-gradle-build-artifacts-d71c915cfa4
-#Update 2026: Nnw based on https://github.com/vanniktech/gradle-maven-publish-plugin
+#Update 2026: Now based on https://github.com/vanniktech/gradle-maven-publish-plugin
 name: Publish package to the Maven Central Repository
 on:
   release:
