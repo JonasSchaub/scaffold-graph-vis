@@ -19,7 +19,7 @@ authors:
 url: "https://github.com/JonasSchaub/scaffold-graph-vis"
 license: LGPL-2.1
 doi: "10.5281/zenodo.10043527"
-date-released: 2026-08-07 #TODO!
+date-released: 2026-08-10
 references:
   - authors:
       - family-names: "Schaub"
