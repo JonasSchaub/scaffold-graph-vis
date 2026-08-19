@@ -55,17 +55,17 @@ The test class
 **Needs to be pre-installed:**
 * Java Development Kit (JDK) version 17
     * [Adoptium OpenJDK](https://adoptium.net) (as one possible source of the JDK)
-* Gradle version 9.6.1
+* Gradle version 9.7.0
     * [Gradle Build Tool](https://gradle.org)
 
 **Managed by Gradle:**
-* CDK Scaffold version 2.12
+* CDK Scaffold version 2.13
     * [CDK Scaffold on GitHub](https://github.com/cdk/cdk-scaffold)
     * License: GNU Lesser General Public License v2.1
 * GraphStream version 2.0
     * [GraphStream on GitHub](https://github.com/graphstream)
     * License: CeCILL-C FREE SOFTWARE LICENSE AGREEMENT and GNU Lesser General Public License v3.0
-* CDK version 2.12
+* CDK version 2.13
     * [CDK GitHub](https://github.com/cdk/cdk)
     * License: GNU Lesser General Public License v2.1
 * JetBrains Annotations version 26.1.0
